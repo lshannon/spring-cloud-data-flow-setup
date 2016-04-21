@@ -23,3 +23,13 @@ module list
 module list
 // dataflow 1.2.0.M1 log opened at 2016-04-21 18:43:01
 module list
+// [failed] stream create ticktock --definition "time | log" --deploy
+// dataflow 1.2.0.M1 log opened at 2016-04-21 19:04:35
+// [failed] stream create --name time-to-log --definition 'time | custom-log' --deploy
+// [failed] stream create ticktock --definition "time | log" --deploy
+// dataflow 1.2.0.M1 log opened at 2016-04-21 19:07:02
+// [failed] stream create ticktock --definition "time | log" --deploy
+// dataflow 1.2.0.M1 log opened at 2016-04-21 19:10:06
+// dataflow 1.2.0.M1 log opened at 2016-04-21 19:10:32
+// dataflow 1.2.0.M1 log opened at 2016-04-21 19:11:39
+stream create ticktock --definition "time | log" --deploy
