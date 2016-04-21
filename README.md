@@ -87,13 +87,22 @@ http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
 
 ```
 
-### Notes
+### Configuration
 
-To get the server to start I needed to create a META-INF/applications.properties file.
+start.spring.io did not create this file at the time I did this example META-INF/applications.properties file. This file can be created, and then the following entries added to it:
 
-![alt text](missing-file.png "Missing File")
+Values taken from here:
 
-Now the admin UI can be viewed locally.
+https://github.com/spring-cloud/spring-cloud-dataflow/blob/master/spring-cloud-dataflow-server-local/src/main/resources/META-INF/applications.properties
+
+
+Also create a resources/dataflow-server.yml file to configure the server.
+
+![alt text](dataflow-yml.png "Yml File")
+
+The values for this file can be taken from here:
+https://github.com/spring-cloud/spring-cloud-dataflow/blob/master/spring-cloud-starter-dataflow-server-local/src/main/resources/dataflow-server.yml
+
 
 ![alt text](admin-ui.png "Admin UI")
 
