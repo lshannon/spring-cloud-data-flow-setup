@@ -132,6 +132,15 @@ dataflow:>module list
 
 ```
 
+## Registering a Module
+
+```shell
+dataflow:>module register --name custom-log --type sink --uri maven://com.lukeshannon.springcloud:SpringCloudLoggingSink
+Successfully registered module 'sink:custom-log'
+```
+
+
+
 
 
 # References
