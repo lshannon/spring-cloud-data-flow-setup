@@ -89,6 +89,8 @@ http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
 
 Now the admin UI can be viewed locally.
 
+![alt text](admin-ui.png "Admin UI")
+
 ## Start the CLI
 
 ```shell
