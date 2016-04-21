@@ -87,6 +87,12 @@ http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
 
 ```
 
+### Notes
+
+To get the server to start I needed to create a META-INF/applications.properties file.
+
+![alt text](missing-file.png "Missing File")
+
 Now the admin UI can be viewed locally.
 
 ![alt text](admin-ui.png "Admin UI")
