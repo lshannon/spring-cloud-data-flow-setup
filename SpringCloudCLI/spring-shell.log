@@ -12,3 +12,14 @@ module list
 module list
 module list
 module list
+clear
+module register --name custom-log --type sink --uri maven://com.lukeshannon.springcloud:SpringCloudLoggingSink
+module list
+stream create --name time-to-log --definition 'time | custom-log'
+// [failed] stream deploy -name time-to-log
+// dataflow 1.2.0.M1 log opened at 2016-04-21 18:38:22
+module list
+// dataflow 1.2.0.M1 log opened at 2016-04-21 18:41:05
+module list
+// dataflow 1.2.0.M1 log opened at 2016-04-21 18:43:01
+module list
