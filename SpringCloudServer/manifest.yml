@@ -1,0 +1,6 @@
+applications:
+- name: spring-cloud-server
+  memory: 512MB
+  path: target/SpringCloudServer.jar
+  host: spring-cloud-server
+  buildpack: java_buildpack_offline

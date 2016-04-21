@@ -1,0 +1,7 @@
+// dataflow 1.2.0.M1 log opened at 2016-04-21 17:21:10
+// dataflow 1.2.0.M1 log opened at 2016-04-21 17:27:18
+// dataflow 1.2.0.M1 log opened at 2016-04-21 17:30:30
+// dataflow 1.2.0.M1 log opened at 2016-04-21 17:31:01
+// [failed] stream create ticktock --definition "time | log" --deploy
+// dataflow 1.2.0.M1 log opened at 2016-04-21 17:43:54
+// [failed] stream create ticktock --definition "time | log" --deploy
