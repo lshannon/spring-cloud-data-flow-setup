@@ -103,6 +103,7 @@ Also create a resources/dataflow-server.yml file to configure the server.
 The values for this file can be taken from here:
 https://github.com/spring-cloud/spring-cloud-dataflow/blob/master/spring-cloud-starter-dataflow-server-local/src/main/resources/dataflow-server.yml
 
+The server UI can now be seen in on the port specified in the Yml file.
 
 ![alt text](admin-ui.png "Admin UI")
 
@@ -129,19 +130,57 @@ dataflow:>
 
 ```
 
-Out of the box there are not any modules:
+The modules specified in the applications file can be seen
 
 ```shell
 
-Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
 dataflow:>module list
-╔══════╤═════════╤════╤════╗
-║source│processor│sink│task║
-╚══════╧═════════╧════╧════╝
+╔══════════════╤════════════════╤═══════════════════╤═════════╗
+║    source    │   processor    │       sink        │  task   ║
+╠══════════════╪════════════════╪═══════════════════╪═════════╣
+║file          │bridge          │aggregate-counter  │timestamp║
+║ftp           │filter          │cassandra          │         ║
+║http          │groovy-filter   │counter            │         ║
+║jdbc          │groovy-transform│custom-log         │         ║
+║jms           │httpclient      │field-value-counter│         ║
+║load-generator│pmml            │file               │         ║
+║rabbit        │splitter        │ftp                │         ║
+║sftp          │transform       │gemfire            │         ║
+║tcp           │                │gpfdist            │         ║
+║time          │                │hdfs               │         ║
+║trigger       │                │jdbc               │         ║
+║twitterstream │                │log                │         ║
+║              │                │rabbit             │         ║
+║              │                │redis              │         ║
+║              │                │router             │         ║
+║              │                │tcp                │         ║
+║              │                │throughput         │         ║
+║              │                │websocket          │         ║
+╚══════════════╧════════════════╧═══════════════════╧═════════╝
+
 
 ```
 
-## Registering a Module
+## Create Good Ol TickTock
+
+It would not be a Spring XD demo if Ticktock was not done.
+
+In the shell do the following
+
+```shell
+
+dataflow:>stream create ticktock --definition "time | log" --deploy
+Created and deployed new stream 'ticktock'
+dataflow:>
+
+```
+
+The deployed stream can be seen in the admin console:
+
+![alt text](deployedstream.png "Admin UI")
+
+
+## Registering A Custom Module
 
 ```shell
 dataflow:>module register --name custom-log --type sink --uri maven://com.lukeshannon.springcloud:SpringCloudLoggingSink
