@@ -112,8 +112,20 @@ Now the admin UI can be viewed locally.
 Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
 dataflow:>
 
+```
+
+Out of the box there are not any modules:
+
+```shell
+
+Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
+dataflow:>module list
+╔══════╤═════════╤════╤════╗
+║source│processor│sink│task║
+╚══════╧═════════╧════╧════╝
 
 ```
+
 
 
 # References
