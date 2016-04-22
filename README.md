@@ -228,7 +228,7 @@ The deployed stream can be seen in the admin console:
 
 To run this simple example on PCF the first step is to get the Service pushing up and running. To do this a Redis service needs to be created in the target Space. This can be created using the UI or the CLI.
 
-![alt text](redisservice.png "Redis Service")
+![alt text](redis-service.png "Redis Service")
 
 ### Pushing The Server
 
