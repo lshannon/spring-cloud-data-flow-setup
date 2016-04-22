@@ -4,3 +4,5 @@ applications:
   path: target/SpringCloudServer.jar
   host: spring-cloud-server
   buildpack: java_buildpack_offline
+  services:
+    redis-service
