@@ -372,7 +372,7 @@ Here is how things look in the Log tailing UI through the PCF apps console
 ![alt text](pcf-tail-logs.png "PCF Log Tail")
 
 
-## Registering A Custom Module
+## Working With Custom Modules
 
 Coming Soon
 
