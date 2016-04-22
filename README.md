@@ -378,9 +378,35 @@ Coming Soon
 
 ## Creating More Advanced Streams
 
-Lets create a stream that uses some sources and sinks provided by PCF services.
+Lets create a stream that uses some sources and sinks provided by PCF services. First off lets create a database connection (MySQL) using in PCF. The PCF documentation gives steps on this. For this example the free service was created, all credentials were reset after this was posted allow for the credentials to be shared without any security risk to existing infastructure or data.
 
-Coming Soon
+Speaking of credentials, we need to get those to create our stream. Click the Manage link in the service to obtain the credentials for the service.
+
+![alt text](manage-db-pcf.png "Manage Service")
+
+The resulting UI will give the HostName, Username and Password.
+
+![alt text](pcf-mysql-endpoints.png "PCF Endpoints")
+
+When a DB service is created for the PCF a Database is created on the fly. To obtain this a connection can be made to a DB management too.
+
+![alt text](pcf-database-query.png "MySQL DB")
+
+
+With all this we can now create the stream.
+
+```shell
+dataflow:>stream create --name mysqlstream --definition "http | jdbc --includes='mysql:mysql-connector-java:5.1.37' --spring.datasource.url='jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/ad_dc6ee684e856a63' --spring.datasource.username=b28a0a994878d4 --spring.datasource.password=d2b11c1a --tableName=strings --columns=string --spring.datasource.driverClassName=com.mysql.jdbc.Driver --initialize=true" --deploy
+Created and deployed new stream 'mysqlstream'
+```
+
+The resulting command will create a stream as well as a Micro Service on the platform to receive the requests. 
+
+Now lets test it.
+
+```shell
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"string": "Hello World!"}'  http://mysqlstream.cfapps.io
+```
 
 # References
 
