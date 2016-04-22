@@ -1,8 +1,8 @@
 # Spring Cloud Data Flow Demo
 
-**NOTE**
+**_NOTE_**
 
-Work on this sample is paused until the M3 release of Spring Cloud Data flow happens next week.
+**Work on this sample is paused until the M3 release of Spring Cloud Data flow happens next week.**
 
 This is a simple set of examples to explore Spring Cloud Data Flow. This is coming from the perspective of someone who has worked with Spring XD and looking to get familiar with Spring Cloud Data Flow.
 
@@ -21,8 +21,9 @@ This can be done with minimal knowledge of these projects opening the door for n
 - A basical understanding of what Spring XD is and its DSL is required to fully appreciate what is being done in this example.
 
 - Redis is required to run the server. There is a version of Redis in the Spring Cloud Data Flow project, or if an a Mac it can be installed using Brew. http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
-- 
-## Caveats
+ 
+##Caveats
+
 These examples were built prior to a GA release of the project. As a result their are manual steps taken when working with a http://start.spring.io/ generated project that will most likely not be required to be taken after the project is GA.
 
 ## Starting Redis Locally
