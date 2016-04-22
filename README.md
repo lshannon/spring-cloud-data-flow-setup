@@ -1,28 +1,26 @@
 # Spring Cloud Data Flow Demo
-This is a simple set of examples to explore Spring Cloud Data Flow.
+This is a simple set of examples to explore Spring Cloud Data Flow. This is coming from the perspective of someone who has worked with Spring XD and looking to get familiar with Spring Cloud Data Flow.
 
 These will build over time.
 
 _NOTE_
-These examples were built prior to a GA release of the project. As a result their our steps taken when working with a http://start.spring.io/ generated project that will most likely not be required to be taken after the project is GA.
+These examples were built prior to a GA release of the project. As a result their are manual steps taken when working with a http://start.spring.io/ generated project that will most likely not be required to be taken after the project is GA.
 
 ## Server and DSL Example
 
-With Spring XD it was easy to create flows that resulting in data moving from a source to a sink by taking advantage of:
+As with Spring XD we can leverage the DSL. Using the DSL it was easy to create flows that resulting in data moving from a source to a sink by taking advantage of:
 
 - Spring Data
 - Spring Integration
 - Spring Batch
 
-The Spring XD DSL made it possible to leaverage the power of these projects without needing to work with these projects directly. This opens the door for now Java developers to create flows.
-
-The following is an demo of the Simple Tick Tock flow used to demo Spring XD, but using Spring Cloud Data Flows.
+This can be done with minimal knowledge of these projects opening the door for none Java developers to create flows.
 
 ## Requirements
 
-Redis is required. There is a version of Redis in the Spring Cloud Data Flow project, or if an a Mac it can be installed using Brew:
+- A basical understanding of what Spring XD is and its DSL is required to fully appreciate what is being done in this example.
 
-http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
+- Redis is required to run the server. There is a version of Redis in the Spring Cloud Data Flow project, or if an a Mac it can be installed using Brew. http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
 
 ## Starting Redis
 
@@ -53,41 +51,9 @@ http://jasdeep.ca/2012/05/installing-redis-on-mac-os-x/
 80560:M 21 Apr 17:36:35.263 * The server is now ready to accept connections on port 6379
 
 ```
+## Creating a server project
 
-## Start the Server project
-
-```shell
-
-/ ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
- \___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
-  ___) | |_) | |  | | | | | (_| | | |___| | (_) | |_| | (_| |
- |____/| .__/|_|  |_|_| |_|\__, |  \____|_|\___/ \__,_|\__,_|
-  ____ |_|    _          __|___/                 __________
- |  _ \  __ _| |_ __ _  |  ___| | _____      __  \ \ \ \ \ \
- | | | |/ _` | __/ _` | | |_  | |/ _ \ \ /\ / /   \ \ \ \ \ \
- | |_| | (_| | || (_| | |  _| | | (_) \ V  V /    / / / / / /
- |____/ \__,_|\__\__,_| |_|   |_|\___/ \_/\_/    /_/_/_/_/_/
-
- 1.0.0.BUILD-SNAPSHOT
-
-2016-04-21 17:39:44.695  INFO 80595 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
-2016-04-21 17:39:44.816  WARN 80595 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/spring-cloud-dataflow-server-local/default": Connection refused; nested exception is java.net.ConnectException: Connection refused
-2016-04-21 17:39:44.817  INFO 80595 --- [           main] c.l.s.SpringCloudServerApplication       : No active profile set, falling back to default profiles: default
-2016-04-21 17:39:44.827  INFO 80595 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@69bc62e9: startup date [Thu Apr 21 17:39:44 EDT 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@58ef44f5
-
-....Output trimmed for brevity....
-
-2016-04-21 17:39:51.251  INFO 80595 --- [           main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel errorChannel
-2016-04-21 17:39:51.252  INFO 80595 --- [           main] o.s.i.monitor.IntegrationMBeanExporter   : Located managed bean 'org.springframework.integration:type=MessageChannel,name=errorChannel': registering with JMX server as MBean [org.springframework.integration:type=MessageChannel,name=errorChannel]
-2016-04-21 17:39:51.293  INFO 80595 --- [           main] o.s.i.monitor.IntegrationMBeanExporter   : Located managed bean 'org.springframework.integration:type=MessageHandler,name=errorLogger,bean=internal': registering with JMX server as MBean [org.springframework.integration:type=MessageHandler,name=errorLogger,bean=internal]
-2016-04-21 17:39:51.450  INFO 80595 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
-2016-04-21 17:39:51.470  INFO 80595 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
-2016-04-21 17:39:51.471  INFO 80595 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'spring-cloud-dataflow-server-local:9393.errorChannel' has 1 subscriber(s).
-2016-04-21 17:39:51.471  INFO 80595 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started _org.springframework.integration.errorLogger
-2016-04-21 17:39:51.549  INFO 80595 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9393 (http)
-2016-04-21 17:39:51.553  INFO 80595 --- [           main] c.l.s.SpringCloudServerApplication       : Started SpringCloudServerApplication in 7.921 seconds (JVM running for 8.421)
-
-```
+start.spring.io is used to create the project. The dependancies selected can be seen here: https://github.com/lshannon/spring-cloud-data-flow-demo/blob/master/SpringCloudServer/pom.xml. Some of these where manually added to get the project to compile. Once the project is GA the pom will contain everything required without modification.
 
 ### Configuration
 
@@ -138,7 +104,6 @@ task.timestamp=maven://org.springframework.cloud.task.module:timestamp-task:jar:
 
 ```
 
-
 Also create a resources/dataflow-server.yml file to configure the server.
 
 ![alt text](dataflow-yml.png "Yml File")
@@ -146,13 +111,51 @@ Also create a resources/dataflow-server.yml file to configure the server.
 The values for this file can be taken from here:
 https://github.com/spring-cloud/spring-cloud-dataflow/blob/master/spring-cloud-starter-dataflow-server-local/src/main/resources/dataflow-server.yml
 
+## Start the Server project
+
+```shell
+
+/ ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
+ \___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
+  ___) | |_) | |  | | | | | (_| | | |___| | (_) | |_| | (_| |
+ |____/| .__/|_|  |_|_| |_|\__, |  \____|_|\___/ \__,_|\__,_|
+  ____ |_|    _          __|___/                 __________
+ |  _ \  __ _| |_ __ _  |  ___| | _____      __  \ \ \ \ \ \
+ | | | |/ _` | __/ _` | | |_  | |/ _ \ \ /\ / /   \ \ \ \ \ \
+ | |_| | (_| | || (_| | |  _| | | (_) \ V  V /    / / / / / /
+ |____/ \__,_|\__\__,_| |_|   |_|\___/ \_/\_/    /_/_/_/_/_/
+
+ 1.0.0.BUILD-SNAPSHOT
+
+2016-04-21 17:39:44.695  INFO 80595 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Fetching config from server at: http://localhost:8888
+2016-04-21 17:39:44.816  WARN 80595 --- [           main] c.c.c.ConfigServicePropertySourceLocator : Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/spring-cloud-dataflow-server-local/default": Connection refused; nested exception is java.net.ConnectException: Connection refused
+2016-04-21 17:39:44.817  INFO 80595 --- [           main] c.l.s.SpringCloudServerApplication       : No active profile set, falling back to default profiles: default
+2016-04-21 17:39:44.827  INFO 80595 --- [           main] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@69bc62e9: startup date [Thu Apr 21 17:39:44 EDT 2016]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@58ef44f5
+
+....Output trimmed for brevity....
+
+2016-04-21 17:39:51.251  INFO 80595 --- [           main] o.s.i.monitor.IntegrationMBeanExporter   : Registering MessageChannel errorChannel
+2016-04-21 17:39:51.252  INFO 80595 --- [           main] o.s.i.monitor.IntegrationMBeanExporter   : Located managed bean 'org.springframework.integration:type=MessageChannel,name=errorChannel': registering with JMX server as MBean [org.springframework.integration:type=MessageChannel,name=errorChannel]
+2016-04-21 17:39:51.293  INFO 80595 --- [           main] o.s.i.monitor.IntegrationMBeanExporter   : Located managed bean 'org.springframework.integration:type=MessageHandler,name=errorLogger,bean=internal': registering with JMX server as MBean [org.springframework.integration:type=MessageHandler,name=errorLogger,bean=internal]
+2016-04-21 17:39:51.450  INFO 80595 --- [           main] o.s.c.support.DefaultLifecycleProcessor  : Starting beans in phase 0
+2016-04-21 17:39:51.470  INFO 80595 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2016-04-21 17:39:51.471  INFO 80595 --- [           main] o.s.i.channel.PublishSubscribeChannel    : Channel 'spring-cloud-dataflow-server-local:9393.errorChannel' has 1 subscriber(s).
+2016-04-21 17:39:51.471  INFO 80595 --- [           main] o.s.i.endpoint.EventDrivenConsumer       : started _org.springframework.integration.errorLogger
+2016-04-21 17:39:51.549  INFO 80595 --- [           main] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 9393 (http)
+2016-04-21 17:39:51.553  INFO 80595 --- [           main] c.l.s.SpringCloudServerApplication       : Started SpringCloudServerApplication in 7.921 seconds (JVM running for 8.421)
+
+```
+
 After the server is started, the server UI can now be seen in on the port specified in the Yml file.
 
 ![alt text](admin-ui.png "Admin UI")
 
+## Create the CLI project
+Like the Server project, start.spring.io is used. The dependancies selected can be seen in the pom file: https://github.com/lshannon/spring-cloud-data-flow-demo/blob/master/SpringCloudCLI/pom.xml
+
 ## Start the CLI
 
-The CLI project was also created using start.spring.io. Upon starting it will try and connected to a locally running server.
+Upon starting it will try and connected to a locally running server.
 
 ```shell
 
@@ -208,9 +211,7 @@ dataflow:>module list
 
 ## Create Good Ol TickTock
 
-It would not be a Spring XD demo if Ticktock was not done.
-
-In the shell create the following stream.
+It would not be a Spring XD demo if Ticktock was not done. In the shell create the following stream.
 
 ```shell
 
@@ -377,9 +378,11 @@ Here is how things look in the Log tailing UI through the PCF apps console
 
 Coming Soon
 
+## Creating More Advanced Streams
 
+Lets create a stream that uses some sources and sinks provided by PCF services.
 
-
+Coming Soon
 
 # References
 
