@@ -370,7 +370,7 @@ No-one has ever gotten a raise for logging the time to file, but in this case I 
 
 Here is how things look in the Log tailing UI through the PCF apps console
 
-![alt text](pcf-tail-console.png "PCF Admin UI Stream")
+![alt text](pcf-tail-logs.png "PCF Log Tail")
 
 
 ## Registering A Custom Module
