@@ -1,6 +1,7 @@
 # Spring Cloud Data Flow Demo
 
-_NOTE_
+**NOTE**
+
 Work on this sample is paused until the M3 release of Spring Cloud Data flow happens next week.
 
 This is a simple set of examples to explore Spring Cloud Data Flow. This is coming from the perspective of someone who has worked with Spring XD and looking to get familiar with Spring Cloud Data Flow.
