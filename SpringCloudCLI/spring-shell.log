@@ -33,3 +33,6 @@ module list
 // dataflow 1.2.0.M1 log opened at 2016-04-21 19:10:32
 // dataflow 1.2.0.M1 log opened at 2016-04-21 19:11:39
 stream create ticktock --definition "time | log" --deploy
+// dataflow 1.2.0.M1 log opened at 2016-04-22 14:41:22
+dataflow config server http://spring-cloud-server.cfapps.io/
+stream create ticktock --definition "time | log" --deploy
