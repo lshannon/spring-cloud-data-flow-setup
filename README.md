@@ -413,7 +413,12 @@ dataflow:>stream create --name mysqlstream --definition "http | jdbc --includes=
 Created and deployed new stream 'mysqlstream'
 ```
 
-The resulting command will create a stream as well as a Micro Service on the platform to receive the requests. 
+The resulting command will create a stream. Now we can register it.
+
+```shell
+module register --name mysource --type source --uri http://mysqlstream.http.cfapps.io --force
+module register --name mysink --type sink --uri http://mysqlstream.jdbc.cfapps.io --force
+```
 
 Now lets test it.
 
