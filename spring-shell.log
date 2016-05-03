@@ -1,0 +1,9 @@
+// dataflow 1.2.0.M1 log opened at 2016-05-03 10:10:15
+module list
+stream create ticktock --definition "time | log" --deploy
+exit
+// dataflow 1.2.0.M1 log closed at 2016-05-03 10:12:00
+// dataflow 1.2.0.M1 log opened at 2016-05-03 10:13:21
+dataflow config server http://spring-cloud-server.cfapps.io/
+stream create ticktock --definition "time | log" --deploy
+stream create --name mysqlstream --definition "http | jdbc --includes='mysql:mysql-connector-java:5.1.37' --spring.datasource.url='jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/ad_dc6ee684e856a63' --spring.datasource.username=b28a0a994878d4 --spring.datasource.password=d2b11c1a --tableName=strings --columns=string --spring.datasource.driverClassName=com.mysql.jdbc.Driver --initialize=true" --deploy
