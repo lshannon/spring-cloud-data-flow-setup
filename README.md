@@ -37,7 +37,7 @@ Running demo_setup_1.sh will perform all the steps on PWS (run.pivotal.io). The 
 ```shell
 ./demo_setup_1.sh 'My Org' 'luke' 'email@mydomain.com' 'mypassword'
 ```
-Upon successful completetion of the script, the application will then be viewed and managed from the app console
+Upon successful completetion of the script, the admin application can be managed from the app console
 
 ![alt text](images/app-console.png "PCF App Console")
 
