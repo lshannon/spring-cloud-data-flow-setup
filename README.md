@@ -39,22 +39,28 @@ Running demo_setup_1.sh will perform all the steps on PWS (run.pivotal.io). The 
 ```shell
 ./demo_setup_1.sh 'My Org' 'luke' 'email@mydomain.com' 'mypassword'
 ```
-
-The application will then be viewed and managed from the app console
+Upon successful completetion of the script, the application will then be viewed and managed from the app console
 
 ![alt text](app-console.png "PCF App Console")
 
-The admin-ui will provide information about the Streams running and other useful details about the state of the Spring Cloud Data Flow Server.
+The admin-ui will provide information about the Streams running and other useful details about the state of the Spring Cloud Data Flow Server (http://luke-dataflow-server.cfapps.io/admin-ui/index.html)
 
 ![alt text](pcf-admin-ui.png "PCF Admin UI")
 
 ### Connecting To The Running Server
 
-Next step is too connect the local CLI to the running server to create our awesome TickTock stream. To do this start the CLI application locally and use the `dataflow config server` command to connect to the server.
+Next step is too connect the local CLI to the running server to create the famous TickTock stream. To do this start the CLI application locally and use the `dataflow config server` command to connect to the server.
+
+Next we perform the following steps:
+
+1. Register the time source
+2. Register the log sink
+3. Create the stream
+
+To connect to the server running on PCF
 
 ```shell
-
-➜  SpringCloudCLI git:(master) java -jar target/SpringCloudCLI.jar                
+➜  spring-cloud-data-flow-demo git:(master) ✗ java -jar spring-cloud-dataflow-shell-1.0.0.BUILD-SNAPSHOT.jar
   ____                              ____ _                __
  / ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
  \___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
@@ -69,44 +75,68 @@ Next step is too connect the local CLI to the running server to create our aweso
 1.0.0.BUILD-SNAPSHOT
 
 Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
-server-unknown:>dataflow config server http://spring-cloud-server.cfapps.io/
-Successfully targeted http://spring-cloud-server.cfapps.io/
+server-unknown:>dataflow config server http://luke-dataflow-server.cfapps.io/
+Successfully targeted http://luke-dataflow-server.cfapps.io/
 dataflow:>
+
 ```
 
-Next lets create the stream.
+To list the streams
 
 ```shell
-dataflow:>stream create ticktock --definition "time | log" --deploy
-Created and deployed new stream 'ticktock'
+dataflow:>stream list
+╔═══════════╤═════════════════╤══════╗
+║Stream Name│Stream Definition│Status║
+╚═══════════╧═════════════════╧══════╝
+
 dataflow:>
 ```
+To see the modules
 
-The stream can now be seen in the UI, just as it behaved locally. The strange this is it shows as `Undeployed` when the stream is infact running (as we will see in the logs)
+```shell
+dataflow:>module list
+╔══════╤═════════╤════╤════╗
+║source│processor│sink│task║
+╠══════╪═════════╪════╪════╣
+║time  │         │log │    ║
+╚══════╧═════════╧════╧════╝
+
+dataflow:>
+
+```
+To register modules, for example time and log, run the following commands in the shell (after connecting to the server).
+
+```shell
+module register --name time --type source --uri maven://org.springframework.cloud.stream.module:time-source:jar:exec:1.0.0.BUILD-SNAPSHOT
+module register --name log --type sink --uri maven://org.springframework.cloud.stream.module:log-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
+```
+To register the famous TickTock stream as an example, run the following
+
+```shell
+dataflow:>stream create luketicktock --definition "time | log" --deploy
+Created and deployed new stream 'ticktock'
+dataflow:>
+
+```
+
+The stream can now be seen in the UI
 
 ![alt text](pcf-admin-ui-stream.png "PCF Admin UI Stream")
 
-Now we can tail the log through the Web UI or using the PCF CLI to see the output of the stream.
+In the apps console we can see a microservice (Spring Boot) for each task in the stream.
 
-```shell
+![alt text](deployedstream.png "Microservices In PCF")
 
-➜  SpringCloudServer git:(master) ✗ cf logs spring-cloud-server
-Connected, tailing logs for app spring-cloud-server in org Northeast / Canada / space luke as lshannon@pivotal.io...
-
-2016-04-22T15:11:17.96-0400 [RTR/1]      OUT spring-cloud-server.cfapps.io - [22/04/2016:19:11:17.955 +0000] "GET /streams/definitions?page=0&size=10 HTTP/1.1" 200 0 357 "http://spring-cloud-server.cfapps.io/admin-ui/index.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36" 10.10.2.176:51365 x_forwarded_for:"66.207.217.100" x_forwarded_proto:"http" vcap_request_id:d01c80d3-7eef-4045-49c7-a90295ea56a6 response_time:0.004617575 app_id:19b0383e-241b-4210-8887-5a1c834eff69
-2016-04-22T15:11:17.99-0400 [RTR/1]      OUT spring-cloud-server.cfapps.io - [22/04/2016:19:11:17.993 +0000] "GET /streams/definitions?page=0&size=10 HTTP/1.1" 200 0 357 "http://spring-cloud-server.cfapps.io/admin-ui/index.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36" 10.10.2.176:51485 x_forwarded_for:"66.207.217.100" x_forwarded_proto:"http" vcap_request_id:9db16227-56e6-41e8-71c7-aabc8c577371 response_time:0.004307066 app_id:19b0383e-241b-4210-8887-5a1c834eff69
-2016-04-22T15:11:18.00-0400 [RTR/4]      OUT spring-cloud-server.cfapps.io - [22/04/2016:19:11:18.004 +0000] "GET /streams/definitions?page=0&size=10 HTTP/1.1" 200 0 357 "http://spring-cloud-server.cfapps.io/admin-ui/index.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36" 10.10.2.176:39280 x_forwarded_for:"66.207.217.100" x_forwarded_proto:"http" vcap_request_id:ae08d534-9596-48e6-7381-e9bad2f820c3 response_time:0.003840506 app_id:19b0383e-241b-4210-8887-5a1c834eff69
-2016-04-22T15:11:19.95-0400 [RTR/1]      OUT spring-cloud-server.cfapps.io - [22/04/2016:19:11:19.949 +0000] "GET /streams/definitions?page=0&size=10 HTTP/1.1" 200 0 357 "http://spring-cloud-server.cfapps.io/admin-ui/index.html" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36" 10.10.2.176:51485 x_forwarded_for:"66.207.217.100" x_forwarded_proto:"http" vcap_request_id:d16350ac-ee96-4fa1-7384-d2ef606ca05b response_time:0.003808166 app_id:19b0383e-241b-4210-8887-5a1c834eff69
-
-.... and so on....
-
-```
-
-No-one has ever gotten a raise for logging the time to file, but in this case I think an exception should be made because this is cool!
-
-Here is how things look in the Log tailing UI through the PCF apps console
+We can now see the result of the stream showing up in the Log microservice
 
 ![alt text](pcf-tail-logs.png "PCF Log Tail")
+
+New streams can be created using the admin-ui.
+
+![alt text](flo-ui.png "New Streams")
+
+
+
 
 # References
 
