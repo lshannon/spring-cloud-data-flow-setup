@@ -4,7 +4,7 @@ This is a simple demo to explore Spring Cloud Data Flow working on Cloud Foundry
 
 ## Overview
 
-As with Spring XD we can leverage the DSL. Using the DSL it was easy to create flows that resulting in data moving from a source to a sink by taking advantage of:
+Spring Cloud Data Flow provides an abstration for the following Spring projects to stream data from sources to sinks (while providing filtering and processing in between).
 
 - Spring Data
 - Spring Integration
@@ -12,9 +12,7 @@ As with Spring XD we can leverage the DSL. Using the DSL it was easy to create f
 
 This can be done with minimal knowledge of these projects opening the door for none Java developers to create flows.
 
-Flows, or streams, move data from a Source to a Sink, often with with processing or transformations in between.
-
-An example might be:
+An example stream might be:
 
 FTP -> Transform Objects to JSON -> Filter on 'country=CA' -> HDFS
 
@@ -41,11 +39,11 @@ Running demo_setup_1.sh will perform all the steps on PWS (run.pivotal.io). The 
 ```
 Upon successful completetion of the script, the application will then be viewed and managed from the app console
 
-![alt text](app-console.png "PCF App Console")
+![alt text](images/app-console.png "PCF App Console")
 
 The admin-ui will provide information about the Streams running and other useful details about the state of the Spring Cloud Data Flow Server (http://luke-dataflow-server.cfapps.io/admin-ui/index.html)
 
-![alt text](pcf-admin-ui.png "PCF Admin UI")
+![alt text](images/pcf-admin-ui.png "PCF Admin UI")
 
 ### Connecting To The Running Server
 
@@ -121,19 +119,19 @@ dataflow:>
 
 The stream can now be seen in the UI
 
-![alt text](pcf-admin-ui-stream.png "PCF Admin UI Stream")
+![alt text](images/pcf-admin-ui-stream.png "PCF Admin UI Stream")
 
 In the apps console we can see a microservice (Spring Boot) for each task in the stream.
 
-![alt text](deployedstream.png "Microservices In PCF")
+![alt text](images/deployedstream.png "Microservices In PCF")
 
 We can now see the result of the stream showing up in the Log microservice
 
-![alt text](pcf-tail-logs.png "PCF Log Tail")
+![alt text](images/pcf-tail-logs.png "PCF Log Tail")
 
 New streams can be created using the admin-ui.
 
-![alt text](flo-ui.png "New Streams")
+![alt text](images/flo-ui.png "New Streams")
 
 Only the sources and sinks that are registered with the server will show up in the palette. Some details for registering some of the existing modules
 
@@ -178,9 +176,6 @@ sink.throughput=maven://org.springframework.cloud.stream.module:throughput-sink:
 sink.websocket=maven://org.springframework.cloud.stream.module:websocket-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
 task.timestamp=maven://org.springframework.cloud.task.module:timestamp-task:jar:exec:1.0.0.BUILD-SNAPSHOT
 ```
-
-
-
 
 # References
 
