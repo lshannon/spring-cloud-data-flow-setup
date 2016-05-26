@@ -158,7 +158,7 @@ New streams can be created using the admin-ui.
 
 ![alt text](images/flo-ui.png "New Streams")
 
-Only the sources and sinks that are registered with the server will show up in the palette. Some details for registering some of the existing modules.
+Only the sources and sinks that are registered with the server will show up in the palette. Custom modules can be registered.
 
 # References
 
