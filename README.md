@@ -78,9 +78,12 @@ Next we perform the following steps:
 3. Register the processors
 3. Create a simple test stream
 
-The commands to registers the sources, sinks and processors have be put into a command file that can be executed from the shell once its connected to the server. register-processor-modules.cmd, register-sink-modules.cmd and register-source-modules.cmd.
+The commands to registers the sources, sinks and processors have been put into a command files that can be executed from the shell once its connected to the server:
+- register-processor-modules.cmd
+- register-sink-modules.cmd
+- register-source-modules.cmd.
 
-Once the shell is connected, the command file can be executed like this.
+Once the shell is connected, a command file can be executed like this.
 
 ```shell
 dataflow:>script --file register-processor-modules.cmd
