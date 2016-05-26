@@ -22,7 +22,7 @@ Using Spring Cloud Data Flow each step in this stream would become a application
 
 ### Setting Up The Server In PCF
 
-The following steps need to be completed to get the server set up to submit Spring XD jobs.
+The following steps need to be completed to get the server set up to submit Spring Cloud Data Flow streams.
 
 1. Download the Spring Cloud Server project
 2. Download the Spring Cloud Shell project
