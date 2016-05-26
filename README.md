@@ -124,7 +124,7 @@ dataflow:>module list
 
 ```
 
-To list the streams
+To list the streams (none have been defined yet in this example)
 
 ```shell
 dataflow:>stream list
