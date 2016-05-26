@@ -16,7 +16,7 @@ An example stream might be:
 
 FTP -> Transform Objects to JSON -> Filter on 'country=CA' -> HDFS
 
-This stream would poll a FTP for files. Each row of a file would be converted to JSON. Only JSON where the attribute country was equal to 'CA' would then be written down to HDFS.
+This stream would poll a FTP for files. Each row of a file would be converted to JSON. Only JSON where the attribute 'country' was equal to 'CA' would then be written down to HDFS.
 
 Using Spring Cloud Data Flow each step in this stream would become a application orchestrated by Pivotal Cloud Foundry.
 
@@ -32,7 +32,7 @@ The following steps need to be completed to get the server set up to submit Spri
 6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF
 7. Start the Server
 
-Running demo_setup_1.sh will perform all the steps on PWS (run.pivotal.io). The script needs the organization, space, username and password with permissions to create new applications.
+Running demo_setup_1.sh will perform all the steps on PWS (run.pivotal.io). The script needs the organization, space, username and password as arguements. The supplied account details need the permissions to create new applications.
 
 ```shell
 ./demo_setup_1.sh 'My Org' 'luke' 'email@mydomain.com' 'mypassword'
@@ -47,15 +47,7 @@ The admin-ui will provide information about the Streams running and other useful
 
 ### Connecting To The Running Server
 
-Next step is too connect the local CLI to the running server to create the famous TickTock stream. To do this start the CLI application locally and use the `dataflow config server` command to connect to the server.
-
-Next we perform the following steps:
-
-1. Register the time source
-2. Register the log sink
-3. Create the stream
-
-To connect to the server running on PCF
+Next step is too connect a locally running Spring Cloud Shell to the running server to create the famous TickTock stream. To do this start the Shell application locally and use the `dataflow config server` command to connect to the server.
 
 ```shell
 ➜  spring-cloud-data-flow-demo git:(master) ✗ java -jar spring-cloud-dataflow-shell-1.0.0.BUILD-SNAPSHOT.jar
@@ -79,6 +71,56 @@ dataflow:>
 
 ```
 
+Next we perform the following steps:
+
+1. Register the sources
+2. Register the sinks
+3. Register the processors
+3. Create a simple test stream
+
+The commands to registers the sources, sinks and processors have be put into a command file that can be executed from the shell once its connected to the server. register-processor-modules.cmd, register-sink-modules.cmd and register-source-modules.cmd.
+
+Once the shell is connected, the command file can be executed like this.
+
+```shell
+dataflow:>script --file register-processor-modules.cmd
+module register --name bridge --type processor --uri maven://org.springframework.cloud.stream.module:bridge-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+Successfully registered module 'processor:bridge'
+module register --name filter --type processor --uri maven://org.springframework.cloud.stream.module:filter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+Successfully registered module 'processor:filter'
+module register --name groovy-filter --type processor --uri maven://org.springframework.cloud.stream.module:groovy-filter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+Successfully registered module 'processor:groovy-filter'
+module register --name groovy-transform --type processor --uri maven://org.springframework.cloud.stream.module:groovy-transform-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+Successfully registered module 'processor:groovy-transform'
+module register --name httpclient --type processor --uri maven://org.springframework.cloud.stream.module:httpclient-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+Successfully registered module 'processor:httpclient'
+module register --name pmml --type processor --uri maven://org.springframework.cloud.stream.module:pmml-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+Successfully registered module 'processor:pmml'
+...and so on...
+
+```
+To see the modules
+
+```shell
+dataflow:>module list
+╔══════════════╤════════════════╤═══════════════════╤════╗
+║    source    │   processor    │       sink        │task║
+╠══════════════╪════════════════╪═══════════════════╪════╣
+║file          │bridge          │aggregate-counter  │    ║
+║ftp           │filter          │cassandra          │    ║
+║http          │groovy-filter   │counter            │    ║
+║jdbc          │groovy-transform│field-value-counter│    ║
+║jms           │httpclient      │file               │    ║
+║load-generator│pmml            │ftp                │    ║
+║rabbit        │splitter        │gemfire            │    ║
+║sftp          │transform       │gpfdist            │    ║
+║tcp           │                │hdfs               │    ║
+║time          │                │jdbc               │    ║
+║              │                │log                │    ║
+╚══════════════╧════════════════╧═══════════════════╧════╝
+
+```
+
 To list the streams
 
 ```shell
@@ -89,25 +131,6 @@ dataflow:>stream list
 
 dataflow:>
 ```
-To see the modules
-
-```shell
-dataflow:>module list
-╔══════╤═════════╤════╤════╗
-║source│processor│sink│task║
-╠══════╪═════════╪════╪════╣
-║time  │         │log │    ║
-╚══════╧═════════╧════╧════╝
-
-dataflow:>
-
-```
-To register modules, for example time and log, run the following commands in the shell (after connecting to the server).
-
-```shell
-module register --name time --type source --uri maven://org.springframework.cloud.stream.module:time-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-module register --name log --type sink --uri maven://org.springframework.cloud.stream.module:log-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-```
 To register the famous TickTock stream as an example, run the following
 
 ```shell
@@ -116,12 +139,11 @@ Created and deployed new stream 'ticktock'
 dataflow:>
 
 ```
-
 The stream can now be seen in the UI
 
 ![alt text](images/pcf-admin-ui-stream.png "PCF Admin UI Stream")
 
-In the apps console we can see a microservice (Spring Boot) for each task in the stream.
+In the apps console we can see a Micro Service (Spring Boot) for each task in the stream has been deployed and given a route. They are also bound to the Rabbit and Redis services.
 
 ![alt text](images/deployedstream.png "Microservices In PCF")
 
@@ -133,49 +155,7 @@ New streams can be created using the admin-ui.
 
 ![alt text](images/flo-ui.png "New Streams")
 
-Only the sources and sinks that are registered with the server will show up in the palette. Some details for registering some of the existing modules
-
-```shell
-
-source.file=maven://org.springframework.cloud.stream.module:file-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.ftp=maven://org.springframework.cloud.stream.module:ftp-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.jdbc=maven://org.springframework.cloud.stream.module:jdbc-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.jms=maven://org.springframework.cloud.stream.module:jms-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.http=maven://org.springframework.cloud.stream.module:http-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.load-generator=maven://org.springframework.cloud.stream.module:load-generator-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.rabbit=maven://org.springframework.cloud.stream.module:rabbit-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.sftp=maven://org.springframework.cloud.stream.module:sftp-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.tcp=maven://org.springframework.cloud.stream.module:tcp-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.time=maven://org.springframework.cloud.stream.module:time-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.trigger=maven://org.springframework.cloud.stream.module:trigger-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-source.twitterstream=maven://org.springframework.cloud.stream.module:twitterstream-source:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.bridge=maven://org.springframework.cloud.stream.module:bridge-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.filter=maven://org.springframework.cloud.stream.module:filter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.groovy-filter=maven://org.springframework.cloud.stream.module:groovy-filter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.groovy-transform=maven://org.springframework.cloud.stream.module:groovy-transform-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.httpclient=maven://org.springframework.cloud.stream.module:httpclient-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.pmml=maven://org.springframework.cloud.stream.module:pmml-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.splitter=maven://org.springframework.cloud.stream.module:splitter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-processor.transform=maven://org.springframework.cloud.stream.module:transform-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.aggregate-counter=maven://org.springframework.cloud.stream.module:aggregate-counter-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.cassandra=maven://org.springframework.cloud.stream.module:cassandra-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.counter=maven://org.springframework.cloud.stream.module:counter-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.field-value-counter=maven://org.springframework.cloud.stream.module:field-value-counter-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.file=maven://org.springframework.cloud.stream.module:file-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.ftp=maven://org.springframework.cloud.stream.module:ftp-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.gemfire=maven://org.springframework.cloud.stream.module:gemfire-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.gpfdist=maven://org.springframework.cloud.stream.module:gpfdist-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.hdfs=maven://org.springframework.cloud.stream.module:hdfs-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.jdbc=maven://org.springframework.cloud.stream.module:jdbc-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.log=maven://org.springframework.cloud.stream.module:log-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.rabbit=maven://org.springframework.cloud.stream.module:rabbit-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.redis=maven://org.springframework.cloud.stream.module:redis-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.router=maven://org.springframework.cloud.stream.module:router-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.tcp=maven://org.springframework.cloud.stream.module:tcp-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.throughput=maven://org.springframework.cloud.stream.module:throughput-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-sink.websocket=maven://org.springframework.cloud.stream.module:websocket-sink:jar:exec:1.0.0.BUILD-SNAPSHOT
-task.timestamp=maven://org.springframework.cloud.task.module:timestamp-task:jar:exec:1.0.0.BUILD-SNAPSHOT
-```
+Only the sources and sinks that are registered with the server will show up in the palette. Some details for registering some of the existing modules.
 
 # References
 
