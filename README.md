@@ -150,7 +150,7 @@ In the apps console we can see a Micro Service (Spring Boot) for each task in th
 
 ![alt text](images/deployedstream.png "Microservices In PCF")
 
-We can now see the result of the stream showing up in the Log microservice
+We can now see the result of the stream showing up in the Micro Service for the logging step of the flow
 
 ![alt text](images/pcf-tail-logs.png "PCF Log Tail")
 
