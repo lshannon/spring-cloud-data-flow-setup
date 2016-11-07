@@ -41,9 +41,9 @@ Upon successful completetion of the script, the admin application can be managed
 
 ![alt text](images/app-console.png "PCF App Console")
 
-The admin-ui will provide information about the Streams running and other useful details about the state of the Spring Cloud Data Flow Server (http://luke-dataflow-server.cfapps.io/dashboard)
+The dashboard will provide information about the Streams running and other useful details about the state of the Spring Cloud Data Flow Server (http://luke-dataflow-server.cfapps.io/dashboard)
 
-![alt text](images/dashboard.png "PCF Admin UI")
+![alt text](images/dashboard.png "Dashboard")
 
 ### Connecting To The Running Server
 
@@ -79,33 +79,33 @@ Next we perform the following steps:
 3. Create a simple test stream
 
 The commands to registers the sources, sinks and processors have been put into a command files that can be executed from the shell once its connected to the server:
-- register-processor-modules.cmd
-- register-sink-modules.cmd
-- register-source-modules.cmd.
+- register-processor-apps.cmd
+- register-sink-apps.cmd
+- register-source-apps.cmd.
 
 Once the shell is connected, a command file can be executed like this.
 
 ```shell
-dataflow:>script --file register-processor-modules.cmd
-module register --name bridge --type processor --uri maven://org.springframework.cloud.stream.module:bridge-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+dataflow:>script --file register-processor-apps.cmd
+app register --name bridge --type processor --uri maven://org.springframework.cloud.stream.module:bridge-processor:jar:exec:1.0.1.RELEASE
 Successfully registered module 'processor:bridge'
-module register --name filter --type processor --uri maven://org.springframework.cloud.stream.module:filter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+app register --name filter --type processor --uri maven://org.springframework.cloud.stream.module:filter-processor:jar:exec:1.0.1.RELEASE
 Successfully registered module 'processor:filter'
-module register --name groovy-filter --type processor --uri maven://org.springframework.cloud.stream.module:groovy-filter-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+app register --name groovy-filter --type processor --uri maven://org.springframework.cloud.stream.module:groovy-filter-processor:jar:exec:1.0.1.RELEASE
 Successfully registered module 'processor:groovy-filter'
-module register --name groovy-transform --type processor --uri maven://org.springframework.cloud.stream.module:groovy-transform-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+app register --name groovy-transform --type processor --uri maven://org.springframework.cloud.stream.module:groovy-transform-processor:jar:exec:1.0.1.RELEASE
 Successfully registered module 'processor:groovy-transform'
-module register --name httpclient --type processor --uri maven://org.springframework.cloud.stream.module:httpclient-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+app register --name httpclient --type processor --uri maven://org.springframework.cloud.stream.module:httpclient-processor:jar:exec:1.0.1.RELEASE
 Successfully registered module 'processor:httpclient'
-module register --name pmml --type processor --uri maven://org.springframework.cloud.stream.module:pmml-processor:jar:exec:1.0.0.BUILD-SNAPSHOT
+app register --name pmml --type processor --uri maven://org.springframework.cloud.stream.module:pmml-processor:jar:exec:1.0.1.RELEASE
 Successfully registered module 'processor:pmml'
 ...and so on...
 
 ```
-To see the modules
+To see the apps
 
 ```shell
-dataflow:>module list
+dataflow:>app  list
 ╔══════════════╤════════════════╤═══════════════════╤════╗
 ║    source    │   processor    │       sink        │task║
 ╠══════════════╪════════════════╪═══════════════════╪════╣
@@ -158,7 +158,7 @@ New streams can be created using the admin-ui.
 
 ![alt text](images/flo-ui.png "New Streams")
 
-Only the sources and sinks that are registered with the server will show up in the palette. Custom modules can be registered.
+Only the sources and sinks that are registered with the server will show up in the palette. Custom apps can be registered.
 
 # References
 
