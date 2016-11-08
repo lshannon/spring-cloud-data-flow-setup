@@ -26,16 +26,27 @@ The following steps need to be completed to get the server set up to submit Spri
 
 1. Download the Spring Cloud Server project
 2. Download the Spring Cloud Shell project
-3. Create a Redis Service in PCF
-4. Create a Rabbit Service in PCF
-5. Push the Server project into PCF
-6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF
+3. Create a Redis Service in PCF or PCFDev
+4. Create a Rabbit Service in PCF or PCFDev
+5. Push the Server project into PCF or PCFDev
+6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF. They differ depending on what your PCF domain is. There are two scripts provided; 1) pcf-scdf-setup.sh and 2) pcfdev-scdf-setup.sh.  Compare the scripts to note the differences in how services are bound and how to setup the endpoints for the required env variables. 
 7. Start the Server
 
+<<<<<<< Updated upstream
 Running demo_setup_1.sh will perform all the steps on PWS (run.pivotal.io). The script needs the organization, space, username and password as arguements. The supplied account details need the permissions to create new applications.
 
 ```shell
 ./demo_setup_1.sh 'My Org' 'luke' 'email@mydomain.com' 'mypassword'
+=======
+Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). The script needs the organization, space, username and password as arguments. The supplied account details need the permissions to create new applications.
+
+Running pcfdev-scdf-setup.sh will perform all the steps on PCFDev (local.pcfdev.io). The script accepts the same arguments but with PCFDev there are already defaults for the Org, Space, user, and password (pcfdev-org, pcfdev-space, admin, admin) that can be used. 
+
+```shell
+./pws-scdf-setup.sh 'My Org' 'luke' 'email@mydomain.com' 'mypassword'
+or
+./pcfdev-scdf-setup.sh pcfdev-org pcfdev-space admin admin
+>>>>>>> Stashed changes
 ```
 Upon successful completetion of the script, the admin application can be managed from the app console
 
@@ -69,6 +80,9 @@ server-unknown:>dataflow config server http://luke-dataflow-server.cfapps.io/
 Successfully targeted http://luke-dataflow-server.cfapps.io/
 dataflow:>
 
+or
+
+server-unknown:>dataflow config server http://wlund-dataflow-server.local.pcfdev.io
 ```
 
 Next we perform the following steps:
