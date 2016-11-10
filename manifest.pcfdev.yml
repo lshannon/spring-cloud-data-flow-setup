@@ -1,0 +1,24 @@
+---
+applications:
+- name: admin-dataflow-server
+  host: admin-dataflow-server
+  memory: 1G
+  path: spring-cloud-dataflow-server-cloudfoundry-1.0.1.RELEASE.jar
+  buildpack: java_buildpack
+  services:
+        - rabbit
+        - redis
+        - mysql
+  env:
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL: https://api.run.pivotal.io
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG: pcfdev-org
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE: pcfdev-space
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN: pcfdev.io
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_SERVICES: redis,rabbit,mysql
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_TASK_SERVICES: redis,rabbit,mysql
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_USERNAME: admin
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD: admin
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SKIP_SSL_VALIDATION: false
+       SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ENABLE_RANDOM_APP_NAME_PREFIX: false
+       MAVEN_REMOTE_REPOSITORIES_REPO1_URL: https://repo.spring.io/libs-snapshot
+       SPRING_CLOUD_DATAFLOW_FEATURES_EXPERIMENTAL_TASKSENABLED: true
