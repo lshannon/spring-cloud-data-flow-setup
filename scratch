@@ -1,0 +1,3 @@
+ask create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire\
+.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.\
+sql="select * from authors"' --name pubs-author-11

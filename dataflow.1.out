@@ -1,0 +1,36 @@
+Connected, tailing logs for app wlund-dataflow-server in org Northwest / space wlund as wlund@pivotal.io...
+
+2016-11-10T16:36:08.72-0800 [RTR/3]      OUT wlund-dataflow-server.cfapps.io - [11/11/2016:00:36:08.655 +0000] "POST /tasks/definitions HTTP/1.1" 200 539 0 "-" "Java/1.8.0_91" 10.10.66.121:59765 10.10.148.105:63333 x_forwarded_for:"71.193.61.9" x_forwarded_proto:"http" vcap_request_id:a76bdc70-dd11-450f-526d-744a431f9bf2 response_time:0.067126651 app_id:5cbeb6b4-9868-4cdb-b3dd-4a67b41e7c7a app_index:0
+2016-11-10T16:36:14.49-0800 [APP/PROC/WEB/0]OUT 2016-11-11 00:36:14.495  INFO 14 --- [nio-8080-exec-5] o.s.c.d.r.s.DelegatingResourceLoader     : Reusing cached file /home/vcap/tmp/deployer-resource-cache4478938141782756930/https-4b280bf08681f1121743bb9f2677ba969728227b-jdbc-gemfire-task-1.0.jar?raw=true as given location https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+2016-11-10T16:36:36.34-0800 [RTR/5]      OUT wlund-dataflow-server.cfapps.io - [11/11/2016:00:36:14.463 +0000] "POST /tasks/deployments/pubs-author-2 HTTP/1.1" 500 22 79 "-" "Java/1.8.0_91" 10.10.66.121:5802 10.10.148.105:63333 x_forwarded_for:"71.193.61.9" x_forwarded_proto:"http" vcap_request_id:0e973d22-7102-4e00-7a94-fba1d7dcde41 response_time:21.8782363 app_id:5cbeb6b4-9868-4cdb-b3dd-4a67b41e7c7a app_index:0
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT java.lang.NullPointerException: null
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at org.springframework.cloud.deployer.spi.cloudfoundry.CloudFoundryTaskLauncher.createTaskRequest(CloudFoundryTaskLauncher.java:403) ~[spring-cloud-deployer-cloudfoundry-1.0.1.RELEASE.jar!/:1.0.1.RELEASE]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at org.springframework.cloud.deployer.spi.cloudfoundry.CloudFoundryTaskLauncher.lambda$createTask$20(CloudFoundryTaskLauncher.java:391) ~[spring-cloud-deployer-cloudfoundry-1.0.1.RELEASE.jar!/:1.0.1.RELEASE]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.MonoThenApply$MonoThenApplyManager.onNext(MonoThenApply.java:97) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxResume$ResumeSubscriber.onNext(FluxResume.java:74) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxPeekFuseable$PeekFuseableSubscriber.onNext(FluxPeekFuseable.java:164) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxMapFuseable$MapFuseableSubscriber.onNext(FluxMapFuseable.java:126) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.Operators$MonoSubscriber.complete(Operators.java:892) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxFilterFuseable$FilterFuseableSubscriber.onNext(FluxFilterFuseable.java:108) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.Operators$MonoSubscriber.complete(Operators.java:892) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.MonoReduce$ReduceSubscriber.onComplete(MonoReduce.java:149) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.ipc.netty.common.NettyChannelHandler$InboundSink.drain(NettyChannelHandler.java:696) ~[reactor-netty-0.5.1.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxSubscribeOn$SourceSubscribeTask.run(FluxSubscribeOn.java:231) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 2016-11-11 00:36:36.336 ERROR 14 --- [nio-8080-exec-5] o.s.c.d.s.c.RestControllerAdvice         : Caught exception while handling a request
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.MonoThenApply$MonoThenApplyManager$SecondSubscriber.onNext(MonoThenApply.java:201) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxUsing$UsingFuseableSubscriber.onNext(FluxUsing.java:314) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxPeekFuseable$PeekFuseableConditionalSubscriber.onNext(FluxPeekFuseable.java:368) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.onComplete(FluxSubscribeOn.java:160) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.ipc.netty.common.NettyChannelHandler$InboundSink.request(NettyChannelHandler.java:772) ~[reactor-netty-0.5.1.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.requestUpstream(FluxSubscribeOn.java:136) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxSubscribeOn$SubscribeOnSubscriber.onSubscribe(FluxSubscribeOn.java:129) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.ipc.netty.common.NettyChannelHandler.subscribe(NettyChannelHandler.java:543) ~[reactor-netty-0.5.1.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.publisher.FluxSource.subscribe(FluxSource.java:59) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at reactor.core.scheduler.ExecutorScheduler$ExecutorTrackedRunnable.run(ExecutorScheduler.java:136) ~[reactor-core-3.0.2.RELEASE.jar!/:na]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:163) ~[netty-all-4.1.5.Final.jar!/:4.1.5.Final]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:418) ~[netty-all-4.1.5.Final.jar!/:4.1.5.Final]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:440) ~[netty-all-4.1.5.Final.jar!/:4.1.5.Final]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:873) ~[netty-all-4.1.5.Final.jar!/:4.1.5.Final]
+2016-11-10T16:36:36.34-0800 [APP/PROC/WEB/0]OUT 	at java.lang.Thread.run(Thread.java:745) ~[na:1.8.0_111]
