@@ -107,3 +107,200 @@ dataflow config server http://wlund-dataflow-server.local.pcfdev.io
 app list
 app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
 app list
+// dataflow 1.2.0.RELEASE log opened at 2016-11-08 15:41:40
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+// [failed] app register --name jdbc-gemfire-task --type task --uri file:///[local-git-repo]/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/jdbc-gemfire-task-1.3.7.RELEASE.jar --force
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/jdbc-gemfire-task-1.3.7.RELEASE.jar --force
+app list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://localhost:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+// [failed] task launch pubs-author
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-1
+// [failed] task launch pubs-author-1
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-3
+// [failed] task launch pubs-author-3
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver ----jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-4
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-4
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-4
+// [failed] task launch pubs-author-4
+// [failed] task launch pubs-author-4
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/jdbc-gemfire-task-1.3.7.RELEASE.jar --force
+task list
+app list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-5
+// [failed] task launch pubs-author-5
+! file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+! ll file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+! ls file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+! ls -la file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-6
+// [failed] task launch pubs-author-6
+! ll /Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/*
+! ls -la /Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/*
+app register --name jdbc-gemfire-task --type task --uri file://Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-7
+// [failed] task launch pubs-author-7
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-8
+// [failed] task launch pubs-author-8
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+app register --name jdbc-gemfire-task --type task --uri https://www.dropbox.com/home/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-9
+app register --name jdbc-gemfire-task --type task --uri file:///Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+app register --name jdbc-gemfire-task --type task --uri file://host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-10
+// [failed] task launch pubs-author-10
+// [failed] task launch pubs-author-10
+app register --name jdbc-gemfire-task --type task --uri file:///host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-11
+// [failed] task launch pubs-author-11
+app register --name jdbc-gemfire-task --type task --uri file://host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-12
+// [failed] task launch pubs-author-12
+app register --name jdbc-gemfire-task --type task --uri file://host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-13
+// [failed] task launch pubs-author-13
+stream create luketicktock --definition "time | log" --deploy
+app list
+stream create ticktock --definition 'time | log'
+stream deploy ticktock
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+app import --uri http://bit.ly/stream-applications-rabbit-maven --force
+stream create luketicktock --definition "time | log" --deploy
+stream deploy luketicktock
+stream list
+// [failed] stream deploy tickktock
+stream deploy ticktock
+stream list
+stream list
+stream list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+stream destroy ticktock
+stream list
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+app list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+stream create --name ticktock --definition "time | log" --deploy
+stream create --name httptest --definition "http --server.port=9000 | log" --deploy
+stream list
+task list
+task list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 09:35:33
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 09:43:41
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 09:43:53
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 09:47:19
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+// [failed] stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream deploy ticktock
+stream list
+stream destroy ticktock
+stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream list
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream deploy ticktock
+stream list
+stream deploy ticktock
+stream list
+stream list
+stream destroy ticktock
+stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream deploy ticktock
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 10:18:34
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 10:25:36
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+stream list
+stream deploy ticktock
+stream list
+app list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+stream list
+stream deploy ticktock
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 14:37:15
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+stream list
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+// [failed] app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+app register --name curration-processor --type processor --uri https://github.com/zhansen-pivotal/lambda/blob/master/pcf-demo/curration-processor/target/curration-processor-0.0.1-SNAPSHOT.jar?raw=true --force
+stream list
+version
+exit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 15:11:22
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 15:11:32
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app register --name curration-processor --type processor --uri https://github.com/zhansen-pivotal/lambda/blob/master/pcf-demo/curration-processor/target/curration-processor-0.0.1-SNAPSHOT.jar?raw=true --force
+// [failed] app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://wlund-pivotal:WWoodruff03github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://wlund-pivotal:WWoodruff03@github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 15:49:07
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 15:49:17
+dataflow config server http://wlund-dataflow-server.cfapps.io
+task list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+task list
+app list
+task list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=ghvnicss --jdbcgemfire.datasource.url=jdbc:postgres://ghvnicss:q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw@elmer.db.elephantsql.com:5432/ghvnicss --jdbcgemfire.locators=ec2-54-203-10-13.us-west-2.compute.amazonaws.com:10334 --jdbcgemfire.datasource.password=q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+task list
+// [failed] task launch pubs-author
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 16:30:50
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=ghvnicss --jdbcgemfire.datasource.url=jdbc:postgres://ghvnicss:q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw@elmer.db.elephantsql.com:5432/ghvnicss --jdbcgemfire.locators=172.31.34.171:10334 --jdbcgemfire.datasource.password=q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-1
+// [failed] task launch pubs-author-1
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=ghvnicss --jdbcgemfire.datasource.url=jdbc:postgres://ghvnicss:q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw@elmer.db.elephantsql.com:5432/ghvnicss --jdbcgemfire.locators=172.31.34.171:10334 --jdbcgemfire.datasource.password=q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-2
+// [failed] task launch pubs-author-2
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 16:37:00
+// dataflow 1.2.0.RELEASE log opened at 2016-11-14 14:24:55
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app list
+task list
+app unregister jdbc-gemfire-task --type task
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
