@@ -36,14 +36,14 @@ cf create-service p-rabbitmq standard  rabbit
 echo "Creating the required MySql Service"
 cf create-service p-mysql 512mb  mysql
 
-if [ ! -f spring-cloud-dataflow-server-cloudfoundry-1.0.1.RELEASE.jar ]; then
+if [ ! -f spring-cloud-dataflow-server-cloudfoundry-1.1.0.M1.jar ]; then
 	echo "Downloading the Server App for Pivotal Cloud Foundry. This will be deployed in Cloud Foundry"
-	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.0.1.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.0.1.RELEASE.jar
+	wget http://repo.spring.io/libs-milestone/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.1.0.M1/spring-cloud-dataflow-server-cloudfoundry-1.1.0.M1.jar
 fi
 
-if [ ! -f spring-cloud-dataflow-shell-1.0.1.RELEASE.jar ]; then
+if [ ! -f spring-cloud-dataflow-shell-1.1.0.RELEASE.jar ]; then
 	echo "Downloading the Shell Application to run locally to connect to the server in PCF"
-	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.0.1.RELEASE/spring-cloud-dataflow-shell-1.0.1.RELEASE.jar
+	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.1.0.RELEASE/spring-cloud-dataflow-shell-1.1.0.RELEASE.jar
 fi
 
 echo "Pusing the Server to PCF"
