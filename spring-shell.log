@@ -102,3 +102,50 @@ stream destroy luketicktock
 stream create luketicktock --definition "time | log" --deploy
 quit
 // dataflow 1.2.0.RELEASE log closed at 2016-11-07 14:20:05
+// dataflow 1.2.0.RELEASE log opened at 2016-11-17 09:04:38
+dataflow config server http://luke-dataflow-server.cfapps.io/
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven 
+app list
+stream create luketicktock --definition "time | log" --deploy
+exit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-17 13:08:23
+// dataflow 1.2.0.RELEASE log opened at 2016-11-17 13:26:33
+dataflow config server http://luke-dataflow-server.cfapps.io/
+app list
+stream create luketicktock --definition "time | log" --deploy
+// dataflow 1.2.0.RELEASE log opened at 2017-01-18 16:15:47
+dataflow config server http://luke-dataflow-server.cfapps.io/
+app list
+stream create kickoff2017 --definition "time | log" --deploy
+// dataflow 1.2.0.RELEASE log opened at 2017-02-17 14:43:19
+dataflow config server http://luke-dataflow-server.cfapps.io/
+stream list
+stream destroy kickoff2017
+stream destroy luketicktock
+stream list
+help
+stream create edh-live --definition "time | log"
+app list
+stream list
+// [failed] stream create edh-live --definition "time | log"
+help hdfs
+help
+exit
+// dataflow 1.2.0.RELEASE log closed at 2017-02-22 14:32:13
+// dataflow 1.2.0.RELEASE log opened at 2017-03-30 14:21:15
+dataflow config server http://luke-dataflow-server.cfapps.io/
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+stream create luketicktock --definition "time | log" --deploy
+exit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-30 14:23:47
+// dataflow 1.2.0.RELEASE log opened at 2017-03-30 14:26:27
+dataflow config server http://luke-dataflow-server.cfapps.io/
+// [failed] stream create luketicktock --definition "time | log" --deploy
+stream list
+stream destroy luketicktock
+stream create luketicktock --definition "time | log" --deploy
+exit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-30 14:28:27
