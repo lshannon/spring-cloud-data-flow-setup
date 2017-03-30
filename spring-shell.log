@@ -149,3 +149,13 @@ stream destroy luketicktock
 stream create luketicktock --definition "time | log" --deploy
 exit
 // dataflow 1.2.0.RELEASE log closed at 2017-03-30 14:28:27
+// dataflow 1.2.0.RELEASE log opened at 2017-03-30 15:02:52
+dataflow config server http://luke-dataflow-server.cfapps.io/
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+// [failed] stream create luketicktock --definition "time | log" --deploy
+stream list
+stream destroy luketicktock
+stream create luketicktock --definition "time | log" --deploy
+stream destroy luketicktock
+exit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-30 15:07:54
