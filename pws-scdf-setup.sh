@@ -39,19 +39,19 @@ echo "Creating the required MySql Service"
 cf create-service cleardb spark mysql
 echo
 
-if [ ! -f spring-cloud-dataflow-server-cloudfoundry-1.1.1.RELEASE.jar ]; then
+if [ ! -f spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar ]; then
 	echo "Downloading the Server App for Pivotal Cloud Foundry. This will be deployed in Cloud Foundry"
-	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.1.1.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.1.1.RELEASE.jar
+	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
 fi
 
-if [ ! -f spring-cloud-dataflow-shell-1.1.1.RELEASE.jar ]; then
+if [ ! -f spring-cloud-dataflow-shell-1.2.3.RELEASE.jar ]; then
 	echo "Downloading the Shell Application to run locally to connect to the server in PCF"
-	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.1.1.RELEASE/spring-cloud-dataflow-shell-1.1.1.RELEASE.jar
+	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar
 fi
 echo
 
 echo "Pusing the Server to PCF"
-cf push $APP_NAME --no-start -p spring-cloud-dataflow-server-cloudfoundry-1.1.1.RELEASE.jar
+cf push $APP_NAME --no-start -p spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
 echo
 
 echo "Binding the Redis Service to the Server"
