@@ -1,8 +1,6 @@
 echo "*****************************"
-echo "* 			SCDF Demo						*"
+echo "* SCDF PWS SET UP		  *"
 echo "*****************************"
-
-APP_NAME=luke-dataflow-server
 
 # Read In Sensitive Data
 
@@ -23,6 +21,8 @@ echo
 echo -n 'Enter the PWS Space:'
 read -s SPACE
 echo
+
+echo -n "Credentials we will be using. Username: $USERNAME Password: $PASSWORD Organization: $ORG Space: $SPACE" 
 
 echo "** Make sure you are logged into to PWS in a Space that will accomidate this deployment"
 echo
