@@ -1,26 +1,41 @@
 # Spring Cloud Data Flow Demo
 
-This is a simple demo to explore Spring Cloud Data Flow working on Cloud Foundry to provide an experience similar to Spring XD.
+This is a simple demo to help you get up and running using Spring Cloud Data Flow (SCDF) on Pivotal Web Services (PWS). In this repo you will find:
 
-## Overview
+1. Steps to get a SCDF Service running in PWS
+2. Steps to get a 'Hello World' equivilant going for SCDF
 
-Spring Cloud Data Flow provides an abstration for the following Spring projects to stream data from sources to sinks (while providing filtering and processing in between).
+## Why SCDF?
 
-- Spring Data
-- Spring Integration
-- Spring Batch
+Data is starting to come in relentless streams. The data needs often needs to be transformed, filtered, enriched and then routed to different destinations. Being able to do this at scale provides a competative advantage.
 
-This can be done with minimal knowledge of these projects opening the door for none Java developers to create flows.
+SCDF combines functionality from Spring Integration, Spring Batch and Spring Data to achieve these goals. It provides a domain specific language (and UI tools) to utilize these projects without having to cut code. It does however provide easy integration points should custom code be required. SCDF also uses Spring Boot to provide a production ready runtime.
 
 An example stream might be:
 
-FTP -> Transform Objects to JSON -> Filter on 'country=CA' -> HDFS
+FTP -> Transform Objects to JSON -> Filter on 'country=CA' -> Write 'country=CA' to MySQL -> Write all other records to HDFS
 
-This stream would poll a FTP for files. Each row of a file would be converted to JSON. Only JSON where the attribute 'country' was equal to 'CA' would then be written down to HDFS.
+Note: The Write(s) would happen in parallel.
 
-Using Spring Cloud Data Flow each step in this stream would become a application orchestrated by Pivotal Cloud Foundry.
+This stream would result in a Spring Boot application being generated for each step (in this case 4), each containing the relevant Spring projects perform the task. A data bus like Rabbit MQ could be used for them to pass messages. The relevant configurations (ie: FTP server crenedtials) can be passed into the modules at start up reducing the need for any low level coding.
 
-### Setting Up The Server In PCF
+### SCDF Data Server
+
+A key part of SCDF is the Data Server. This is a Spring Boot application that exposes an API developers can use to create Streams. The Data Server can then work with the Platform its running in to provision the Spring Boot apps that compose the stream.
+
+### Why PWS?
+
+PWS is a managed Pivotal Cloud Foundry running on AWS. It contains a market place that be used to provision all the required backing services. The SCDF Data Server can be deployed into PWS. Part of its configuration will be credentials to PWS itself. This allows the Data Server to use the power of PCF to create all the Spring Boot apps making up a stream.
+
+PCF provides:
+
+1. Management and self healing for all Spring Boot components making up a stream (including the Data Server)
+2. Clean progamming module to create and bind backing services
+3. API(s) and interfaces for viewing/managing logs and metrics for all components
+
+.
+
+## Setting Up The SCDF Server
 
 The following steps need to be completed to get the server set up to submit Spring Cloud Data Flow streams.
 
