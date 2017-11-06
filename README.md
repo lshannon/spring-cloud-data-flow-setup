@@ -25,8 +25,6 @@ Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). Th
 ```
 Upon successful completetion of the script, a Spring Cloud Data Flow server will be running on PWS.
 
-The admin application can be managed from the UI of the application itself as well as using the Shell from your local machine.
-
 ![alt text](images/app-console.png "PCF App Console")
 
 The dashboard will provide information about the Streams running and other useful details about the state of the Spring Cloud Data Flow Server (http://luke-dataflow-server.cfapps.io/dashboard)
