@@ -1,4 +1,4 @@
-# Spring Cloud Data Flow Demo
+# Spring Cloud Data Flow Set Up
 
 This is a simple demo to help you get up and running using Spring Cloud Data Flow (SCDF) on Pivotal Web Services (PWS). In this repo you will find:
 
