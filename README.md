@@ -2,8 +2,9 @@
 
 This is a simple demo to help you get up and running using Spring Cloud Data Flow (SCDF) on Pivotal Web Services (PWS). In this repo you will find:
 
-1. Steps to get a SCDF Service running in PWS
-2. Steps to get a 'Hello World' equivilant going for SCDF
+1. Steps to get a SCDF Server running in PWS
+2. Set Up the SCDF Shell locally
+3. Get a 'Hello World' equivilant going for SCDF
 
 ## Setting Up The SCDF Server
 
@@ -17,12 +18,14 @@ The following steps need to be completed to get the server set up to submit Spri
 6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF
 7. Start the Server
 
-Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). The script needs the organization, space, username and password as arguements. The supplied account details need the permissions to create new applications.
+Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguements.
 
 ```shell
-./pws-scdf-setup.sh 'My Org' 'luke' 'email@mydomain.com' 'mypassword'
+./pws-scdf-setup.sh
 ```
-Upon successful completetion of the script, the admin application can be managed from the app console
+Upon successful completetion of the script, a Spring Cloud Data Flow server will be running on PWS.
+
+The admin application can be managed from the UI of the application itself as well as using the Shell from your local machine.
 
 ![alt text](images/app-console.png "PCF App Console")
 
