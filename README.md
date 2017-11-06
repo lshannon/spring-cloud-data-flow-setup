@@ -59,20 +59,17 @@ dataflow:>
 
 Next we perform the following steps:
 
-0. Register maven repos
-1. Register the sources
-2. Register the sinks
-3. Register the processors
-3. Create a simple test stream
+1. Register maven repos
+2. Register the sources
+3. Register the sinks
+4. Register the processors
+5. Create a simple test stream
 
 The command to register maven is:
 - cf set-env luke-dataflow-server MAVEN_REMOTE_REPOSITORIES_REPO1_URL https://repo.spring.io/libs-snapshot
 
-The commands to registers the sources, sinks and processors is handled
-by Spring Cloud Dataflow App Starters.  Simply execute the command
+The commands to registers the sources, sinks and processors handled by Spring Cloud Dataflow App Starters. Simply execute the command
 from dataflow:
-
-Once the shell is connected, a command file can be executed like this.
 
 ```shell
 dataflow> app import http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven 
@@ -110,15 +107,18 @@ dataflow:>stream list
 
 dataflow:>
 ```
-To register the famous TickTock stream as an example, run the following
+Our 'Hello World' will be the infamous 'ticktock' stream. It has two components. One that writes out the time another that writes that time to the log file. RabbitMQ is used to pass the time value as a message to the logging componet.
+
+To create the stream, run the following:
 
 ```shell
+
 dataflow:>stream create luketicktock --definition "time | log" --deploy
 Created and deployed new stream 'ticktock'
 dataflow:>
 
 ```
-The stream can now be seen in the UI
+The stream can now be seen in the UI:
 
 ![alt text](images/pcf-admin-ui-stream.png "PCF Admin UI Stream")
 
