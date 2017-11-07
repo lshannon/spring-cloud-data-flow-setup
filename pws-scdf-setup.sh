@@ -68,14 +68,14 @@ echo ""
 echo "Checking for the Data Server Artifact to deploy to PWS: spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar"
 echo ""
 
-if [ ! -f spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar ]; then
+if [ ! -f server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar ]; then
 	echo "Downloading the Server App for Pivotal Cloud Foundry. This will be deployed in Cloud Foundry"
 	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar -P server
 fi
 echo ""
 
 echo "Checking for the Data Flow shell for local use: spring-cloud-dataflow-shell-1.2.3.RELEASE.jar"
-if [ ! -f spring-cloud-dataflow-shell-1.2.3.RELEASE.jar ]; then
+if [ ! -f shell/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar ]; then
 	echo "Downloading the Shell Application to run locally to connect to the server in PCF"
 	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar -P shell
 fi
