@@ -68,11 +68,17 @@ echo ""
 echo "Checking for the Data Server Artifact to deploy to PWS: spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar"
 echo ""
 
+#make the directory if it does not exist
+mkdir -p server
+
 if [ ! -f server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar ]; then
 	echo "Downloading the Server App for Pivotal Cloud Foundry. This will be deployed in Cloud Foundry"
 	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar -P server
 fi
 echo ""
+
+#make the directory if it does not exist
+mkdir -p shell
 
 echo "Checking for the Data Flow shell for local use: spring-cloud-dataflow-shell-1.2.3.RELEASE.jar"
 if [ ! -f shell/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar ]; then
