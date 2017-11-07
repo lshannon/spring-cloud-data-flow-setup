@@ -10,18 +10,57 @@ This is a simple demo to help you get up and running using Spring Cloud Data Flo
 
 The following steps need to be completed to get the server set up to submit Spring Cloud Data Flow streams.
 
-1. Download the Spring Cloud Server project
+1. Download the SCDF project
 2. Download the Spring Cloud Shell project
 3. Create a Redis Service in PCF
 4. Create a Rabbit Service in PCF
-5. Push the Server project into PCF
+5. Push the Server project into PCF (stopped)
 6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF
 7. Start the Server
 
 Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguements.
 
+It will create a server based on the name of our Org and Space. Then it will run on the necessary commands to set everything up
+
 ```shell
+
 ./pws-scdf-setup.sh
+
+...
+
+The Data Server will be called: cloud-nativedevelopment-dataflow-server 
+Redis Serivce: cloud-nativedevelopment-scdf-redis
+Rabbit Service: cloud-nativedevelopment-scdf-rabbit
+MySQL: cloud-nativedevelopment-scdf-mysql
+
+The following commands will be ran to set up your Server:
+cf create-service rediscloud 30mb cloud-nativedevelopment-scdf-redis
+cf create-service cloudamqp lemur cloud-nativedevelopment-scdf-rabbit
+cf create-service cleardb spark cloud-nativedevelopment-scdf-mysql
+(If you don't have it already) wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
+(If you don't have it already) wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar
+cf push cloud-nativedevelopment-dataflow-server --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
+cf bind-service cloud-nativedevelopment-dataflow-server cloud-nativedevelopment-scdf-redis
+cf bind-service cloud-nativedevelopment-dataflow-server cloud-nativedevelopment-scdf-rabbit
+cf bind-service cloud-nativedevelopment-dataflow-server cloud-nativedevelopment-scdf-mysql
+cf set-env cloud-nativedevelopment-dataflow-server MAVEN_REMOTE_REPOSITORIES_REPO1_URL https://repo.spring.io/libs-snapshot
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL https://api.run.pivotal.io
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN cfapps.io
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_SERVICES cloud-nativedevelopment-scdf-rabbit
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SKIP_SSL_VALIDATION false
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SERVICES cloud-nativedevelopment-scdf-redis,cloud-nativedevelopment-scdf-rabbit
+Setting Env for Username and Password silently
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_USERNAME ********* > /dev/null
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD ********* > /dev/null
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG cloud-native
+cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE development
+
+Do you wish to run these commands (there will be a charge for all these services in PWS)? (Type 'Y' to proceed)
+
+....
+
+NOTE: You will need a paid account to run this (25 GB of available application memory). **Do not leave this running**. Use the clean up script to delete the Server and its servers.
+
 ```
 Upon successful completetion of the script, a Spring Cloud Data Flow server will be running on PWS.
 
