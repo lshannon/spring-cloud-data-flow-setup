@@ -20,7 +20,7 @@ The following steps need to be completed to get the server set up to submit Spri
 
 Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguements.
 
-It will create a server based on the name of our Org and Space. Then it will run on the necessary commands to set everything up
+It will create a server based on the name of our Org and Space. Then it will run on the necessary commands to set everything up. A preview of these commands will be listed and a chance to cancel if you get scared.
 
 ```shell
 
@@ -75,7 +75,8 @@ The dashboard will provide information about the Streams running and other usefu
 Next step is too connect a locally running Spring Cloud Shell to the running server to create the famous TickTock stream. To do this start the Shell application locally and use the `dataflow config server` command to connect to the server.
 
 ```shell
-➜  spring-cloud-data-flow-demo git:(master) ✗ java -jar spring-cloud-dataflow-shell-1.0.1.RELEASE.jar
+
+➜  spring-cloud-data-flow-setup git:(master) java -jar shell/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar  
   ____                              ____ _                __
  / ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
  \___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
@@ -87,54 +88,74 @@ Next step is too connect a locally running Spring Cloud Shell to the running ser
  | |_| | (_| | || (_| | |  _| | | (_) \ V  V /    / / / / / /
  |____/ \__,_|\__\__,_| |_|   |_|\___/ \_/\_/    /_/_/_/_/_/
 
-1.0.1.RELEASE
+1.2.3.RELEASE
 
 Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
-server-unknown:>dataflow config server http://luke-dataflow-server.cfapps.io/
-Successfully targeted http://luke-dataflow-server.cfapps.io/
+server-unknown:>
+
+```
+Now we can connect to the Server
+
+```shell
+
+server-unknown:>dataflow config server https://cloud-nativedevelopment-dataflow-server.cfapps.io
+Successfully targeted https://cloud-nativedevelopment-dataflow-server.cfapps.io
 dataflow:>
 
 ```
+Your server name will not the same as mine (its based on the Org and Space).
 
-Next we perform the following steps:
-
-1. Register maven repos
-2. Register the sources
-3. Register the sinks
-4. Register the processors
-5. Create a simple test stream
-
-The command to register maven is:
-- cf set-env luke-dataflow-server MAVEN_REMOTE_REPOSITORIES_REPO1_URL https://repo.spring.io/libs-snapshot
-
-The commands to registers the sources, sinks and processors handled by Spring Cloud Dataflow App Starters. Simply execute the command
+Next we will import the sources, sinks and processors handled by Spring Cloud Dataflow App Starters. Execute the command
 from dataflow:
 
 ```shell
-dataflow> app import http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven 
-Successfully registered applications: [sink.task-launcher-yarn, source.tcp, sink.jdbc, source.http, sink.rabbit, source.rabbit, source.ftp, sink.gpfdist, processor.transform, source.loggregator, source.sftp, processor.filter, source.file, sink.cassandra, processor.groovy-filter, sink.router, source.trigger, sink.hdfs-dataset, processor.splitter, source.load-generator, sink.sftp, sink.file, processor.tcp-client, source.time, source.gemfire, source.twitterstream, sink.tcp, source.jdbc, sink.field-value-counter, sink.redis-pubsub, sink.hdfs, sink.task-launcher-local, processor.bridge, processor.pmml, processor.httpclient, sink.ftp, source.s3, sink.log, sink.gemfire, sink.aggregate-counter, sink.throughput, source.triggertask, sink.s3, source.gemfire-cq, source.jms, source.tcp-client, processor.scriptable-transform, sink.counter, sink.websocket, source.mongodb, source.mail, processor.groovy-transform, source.syslog]
+dataflow:>app import http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+Successfully registered 59 applications from [source.sftp, source.file.metadata, processor.tcp-client, source.s3.metadata, source.jms, source.ftp, processor.transform.metadata, source.time, sink.s3.metadata, sink.log, processor.scriptable-transform, source.load-generator, sink.websocket.metadata, source.syslog, processor.transform, sink.task-launcher-local.metadata, source.loggregator.metadata, source.s3, source.load-generator.metadata, processor.pmml.metadata, source.loggregator, source.tcp.metadata, processor.httpclient.metadata, sink.file.metadata, source.triggertask, source.twitterstream, source.gemfire-cq.metadata, processor.aggregator.metadata, source.mongodb, source.time.metadata, sink.counter.metadata, source.gemfire-cq, source.http, sink.tcp.metadata, sink.pgcopy.metadata, source.rabbit, sink.task-launcher-yarn, source.jms.metadata, sink.gemfire.metadata, sink.cassandra.metadata, processor.tcp-client.metadata, sink.throughput, processor.header-enricher, sink.task-launcher-local, sink.aggregate-counter.metadata, sink.mongodb, sink.log.metadata, processor.splitter, sink.hdfs-dataset, source.tcp, source.trigger, source.mongodb.metadata, processor.bridge, source.http.metadata, sink.ftp, source.rabbit.metadata, sink.jdbc, source.jdbc.metadata, sink.rabbit.metadata, sink.aggregate-counter, processor.pmml, sink.router.metadata, sink.cassandra, source.tcp-client.metadata, processor.filter.metadata, processor.groovy-transform, processor.header-enricher.metadata, source.ftp.metadata, sink.router, sink.redis-pubsub, source.tcp-client, processor.httpclient, sink.file, sink.websocket, sink.s3, source.syslog.metadata, sink.rabbit, sink.counter, sink.gpfdist.metadata, source.mail.metadata, source.trigger.metadata, processor.filter, sink.pgcopy, sink.jdbc.metadata, sink.gpfdist, sink.ftp.metadata, processor.splitter.metadata, sink.sftp, sink.field-value-counter, processor.groovy-filter.metadata, source.triggertask.metadata, sink.hdfs, processor.groovy-filter, sink.redis-pubsub.metadata, source.sftp.metadata, sink.field-value-counter.metadata, processor.bridge.metadata, processor.groovy-transform.metadata, processor.aggregator, sink.sftp.metadata, sink.throughput.metadata, sink.hdfs-dataset.metadata, sink.tcp, sink.task-launcher-cloudfoundry.metadata, source.mail, source.gemfire.metadata, source.jdbc, sink.task-launcher-yarn.metadata, sink.gemfire, source.gemfire, sink.hdfs.metadata, source.twitterstream.metadata, processor.tasklaunchrequest-transform, sink.task-launcher-cloudfoundry, source.file, sink.mongodb.metadata, processor.tasklaunchrequest-transform.metadata, processor.scriptable-transform.metadata]
+dataflow:>
+
 ```
-To see the apps
+To learn more about the Starters, check out the following:
+https://cloud.spring.io/spring-cloud-stream-app-starters/
+
+To see the components that have been registered.
 
 ```shell
-dataflow:>app  list
-╔══════════════╤════════════════╤═══════════════════╤════╗
-║    source    │   processor    │       sink        │task║
-╠══════════════╪════════════════╪═══════════════════╪════╣
-║file          │bridge          │aggregate-counter  │    ║
-║ftp           │filter          │cassandra          │    ║
-║http          │groovy-filter   │counter            │    ║
-║jdbc          │groovy-transform│field-value-counter│    ║
-║jms           │httpclient      │file               │    ║
-║load-generator│pmml            │ftp                │    ║
-║rabbit        │splitter        │gemfire            │    ║
-║sftp          │transform       │gpfdist            │    ║
-║tcp           │                │hdfs               │    ║
-║time          │                │jdbc               │    ║
-║              │                │log                │    ║
-╚══════════════╧════════════════╧═══════════════════╧════╝
+
+dataflow:>app list
+
+╔══════════════╤═══════════════════════════╤══════════════════════════╤════╗
+║    source    │         processor         │           sink           │task║
+╠══════════════╪═══════════════════════════╪══════════════════════════╪════╣
+║file          │aggregator                 │aggregate-counter         │    ║
+║ftp           │bridge                     │cassandra                 │    ║
+║gemfire       │filter                     │counter                   │    ║
+║gemfire-cq    │groovy-filter              │field-value-counter       │    ║
+║http          │groovy-transform           │file                      │    ║
+║jdbc          │header-enricher            │ftp                       │    ║
+║jms           │httpclient                 │gemfire                   │    ║
+║load-generator│pmml                       │gpfdist                   │    ║
+║loggregator   │scriptable-transform       │hdfs                      │    ║
+║mail          │splitter                   │hdfs-dataset              │    ║
+║mongodb       │tasklaunchrequest-transform│jdbc                      │    ║
+║rabbit        │tcp-client                 │log                       │    ║
+║s3            │transform                  │mongodb                   │    ║
+║sftp          │                           │pgcopy                    │    ║
+║syslog        │                           │rabbit                    │    ║
+║tcp           │                           │redis-pubsub              │    ║
+║tcp-client    │                           │router                    │    ║
+║time          │                           │s3                        │    ║
+║trigger       │                           │sftp                      │    ║
+║triggertask   │                           │task-launcher-cloudfoundry│    ║
+║twitterstream │                           │task-launcher-local       │    ║
+║              │                           │task-launcher-yarn        │    ║
+║              │                           │tcp                       │    ║
+║              │                           │throughput                │    ║
+║              │                           │websocket                 │    ║
+╚══════════════╧═══════════════════════════╧══════════════════════════╧════╝
+
 
 ```
+As you can see, lots of great components here.
 
 To list the streams (none have been defined yet in this example)
 
@@ -153,7 +174,8 @@ To create the stream, run the following:
 ```shell
 
 dataflow:>stream create luketicktock --definition "time | log" --deploy
-Created and deployed new stream 'ticktock'
+Created new stream 'luketicktock'
+Deployment request has been sent
 dataflow:>
 
 ```
@@ -161,7 +183,7 @@ The stream can now be seen in the UI:
 
 ![alt text](images/pcf-admin-ui-stream.png "PCF Admin UI Stream")
 
-In the apps console we can see a Micro Service (Spring Boot) for each task in the stream has been deployed and given a route. They are also bound to the Rabbit and Redis services.
+In the apps console we can see a Micro Service (Spring Boot) for each task in the stream has been deployed and given a route. They are also bound to the Rabbit Service as their backing data store.
 
 ![alt text](images/deployedstream.png "Microservices In PCF")
 
@@ -169,11 +191,15 @@ We can now see the result of the stream showing up in the Micro Service for the 
 
 ![alt text](images/pcf-tail-logs.png "PCF Log Tail")
 
-New streams can be created using the dashboard.
+New streams can be created using the dashboard, if you are not a fan of the Shell.
 
 ![alt text](images/flo-ui.png "New Streams")
 
 Only the sources and sinks that are registered with the server will show up in the palette. Custom apps can be registered.
+
+## Next Steps
+
+This gets you started. Stay tuned for a more interesting example using this set up.
 
 # References
 
