@@ -4,7 +4,7 @@ echo "*****************************"
 
 # Read In Sensitive Data
 
-echo "To create the SCDF Server we will need PWS credentials."
+echo "To create the SCDF Server we will need PWS credentials,"
 echo "These will be used locally as well as passed to the server running in PWS"
 echo ""
 

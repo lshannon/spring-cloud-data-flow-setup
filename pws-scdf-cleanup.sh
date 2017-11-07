@@ -2,7 +2,7 @@ echo "*****************************"
 echo "* SCDF PWS CLEAN UP		      *"
 echo "*****************************"
 echo ""
-echo "To delete the SCDF Server and all its services we will need credentials to your PWS account."
+echo "To delete the SCDF Server and all its services we will need credentials to your PWS account and the Org and Space"
 
 #Run script to collection credentails
 . collect_credentials.sh
