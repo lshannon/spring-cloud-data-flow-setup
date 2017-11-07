@@ -191,7 +191,7 @@ We can now see the result of the stream showing up in the Micro Service for the 
 
 ![alt text](images/pcf-tail-logs.png "PCF Log Tail")
 
-New streams can be created using the dashboard.
+New streams can be created using the dashboard, if you are not a fan of the Shell.
 
 ![alt text](images/flo-ui.png "New Streams")
 
