@@ -174,7 +174,8 @@ To create the stream, run the following:
 ```shell
 
 dataflow:>stream create luketicktock --definition "time | log" --deploy
-Created and deployed new stream 'ticktock'
+Created new stream 'luketicktock'
+Deployment request has been sent
 dataflow:>
 
 ```
