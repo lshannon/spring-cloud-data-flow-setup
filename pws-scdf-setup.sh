@@ -106,7 +106,7 @@ echo "Setting the environmental variables. The following will be ran:"
 
 echo ""
 cf set-env $ADMIN MAVEN_REMOTE_REPOSITORIES_REPO1_URL https://repo.spring.io/libs-snapshot
-cf set-env ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL https://api.run.pivotal.io
+cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL https://api.run.pivotal.io
 cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN cfapps.io
 cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_SERVICES $RABBIT
 cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SERVICES $REDIS,$RABBIT
