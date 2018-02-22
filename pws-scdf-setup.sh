@@ -62,24 +62,24 @@ echo ""
 #make the directory if it does not exist
 mkdir -p server
 
-if [ ! -f server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar ]; then
+if [ ! -f server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar ]; then
 	echo "Downloading the Server App for Pivotal Cloud Foundry. This will be deployed in Cloud Foundry"
-	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar -P server
+	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.3.0.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar -P server
 fi
 echo ""
 
 #make the directory if it does not exist
 mkdir -p shell
 
-echo "Checking for the Data Flow shell for local use: spring-cloud-dataflow-shell-1.2.3.RELEASE.jar"
-if [ ! -f shell/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar ]; then
+echo "Checking for the Data Flow shell for local use: spring-cloud-dataflow-shell-1.3.1.RELEASE.jar"
+if [ ! -f shell/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar ]; then
 	echo "Downloading the Shell Application to run locally to connect to the server in PCF"
-	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar -P shell
+	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.3.1.RELEASE/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar -P shell
 fi
 echo ""
 
 echo "Pusing the Server to PCF"
-	cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G -p server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
+	cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G -p server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar
 echo ""
 
 echo "Binding the Redis Service to the Server"
