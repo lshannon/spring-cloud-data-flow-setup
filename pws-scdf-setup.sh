@@ -9,7 +9,7 @@ echo "The script will prompt for your Username, Password, Organization and Space
 echo "This samples requires a more robust RabbitMQ plan (ie: Tiger)"
 
 #Run script to collection credentails
-. collect_credentials.sh
+. bin/collect_credentials.sh
 
 echo "The Data Server will be called: $ADMIN "
 echo "Redis Serivce: $REDIS"
