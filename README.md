@@ -1,36 +1,43 @@
-# Spring Cloud Data Flow Set Up
+# Introduction
 
 Spring Cloud Data Flow (SCDF) provides a framework for creating, operating and monitoring data event streams:
 
 https://cloud.spring.io/spring-cloud-dataflow/
 
-To take advantage of this framework, a SCDF Admin server needs to be running (and integrated) with a supported platform. In the case of this sample that run time is PCF.
+To take advantage of this framework, a SCDF Admin server needs to be running (and integrated) with a supported platform. In the case of this sample, that runtime is PCF.
 
-This is a quick sample to get the Spring Cloud Dataflow (SCDF) Admin Application running on PCF. There is scripts for PWS and for PCF. The difference with these scripts is the PWS script sets up the required services as well installs the Admin. For the generic PCF script the required services need to be created prior to running the script.
+This is a quick sample to get the Spring Cloud Dataflow (SCDF) Admin Application running on PCF. There is scripts for PWS and for PCF. The difference with these scripts is the PWS script sets up the required services as well installs the Admin.
 
-For users with their own PCF installation, the following tile can be used to get 
+For the generic PCF script (a PCF running on Azure/GCP/AWS/vSphere/Open Stack), the required services need to be created prior to running the script. The better option for these users is the following tile. It sets up everything required and is kept in sync with the SCDF roadmap:
 
 http://docs.pivotal.io/scdf/
 
+
 ## Setting Up The SCDF Server
 
-The following steps need to be completed to get the server set up to submit Spring Cloud Data Flow streams.
+The SCDF Server gets stream definitions submitted to it. It then creates Spring Boot applications to perform the steps in the stream.
 
-1. Download the SCDF project
-2. Download the Spring Cloud Shell project
+The following steps need to be completed to get the Admin server running.
+
+1. Download the SCDF Admin project
+2. Download the Spring Cloud Shell project (used to submit streams from a local machine to the server)
 3. Create a Redis Service in PCF
 4. Create a Rabbit Service in PCF
 5. Push the Server project into PCF (stopped)
-6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF
+6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF and Redis + Rabbit
 7. Start the Server
 
-Running pws-scdf-setup.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguements.
+### Setting Up On PWS
 
-It will create a server based on the name of our Org and Space. Then it will run on the necessary commands to set everything up. A preview of these commands will be listed and a chance to cancel if you get scared.
+Running setup-pws.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguements. These are required for the admin server to be able to create and manage data streams.
+
+The script will create an Admin Service instance based on a trimmed version the names of the Org and Space.
+
+A preview of these commands to be ran to set up the Admin is previewed at the start of the script. This provides a chance to cancel if a mistake was made, or if doing something cool is too scary for you.
 
 ```shell
 
-./pws-scdf-setup.sh
+./setup-pws.sh
 
 ...
 
