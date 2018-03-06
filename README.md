@@ -15,7 +15,7 @@ http://docs.pivotal.io/scdf/
 
 ## Setting Up The SCDF Server
 
-The SCDF Server gets stream definitions submitted to it. It then creates Spring Boot applications to perform the steps in the stream.
+The SCDF Server gets stream definitions submitted to it. It then generates and deploys Spring Boot applications (into the same platform its running in) to perform the steps in the stream.
 
 The following steps need to be completed to get the Admin server running.
 
