@@ -1,10 +1,16 @@
 # Spring Cloud Data Flow Set Up
 
-This is a simple demo to help you get up and running using Spring Cloud Data Flow (SCDF) on Pivotal Web Services (PWS). In this repo you will find:
+Spring Cloud Data Flow (SCDF) provides a framework for creating, operating and monitoring data event streams:
 
-1. Steps to get a SCDF Server running in PWS
-2. Set Up the SCDF Shell locally
-3. Get a 'Hello World' equivilant going for SCDF
+https://cloud.spring.io/spring-cloud-dataflow/
+
+To take advantage of this framework, a SCDF Admin server needs to be running (and integrated) with a supported platform. In the case of this sample that run time is PCF.
+
+This is a quick sample to get the Spring Cloud Dataflow (SCDF) Admin Application running on PCF. There is scripts for PWS and for PCF. The difference with these scripts is the PWS script sets up the required services as well installs the Admin. For the generic PCF script the required services need to be created prior to running the script.
+
+For users with their own PCF installation, the following tile can be used to get 
+
+http://docs.pivotal.io/scdf/
 
 ## Setting Up The SCDF Server
 
