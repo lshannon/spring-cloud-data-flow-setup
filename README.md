@@ -6,7 +6,9 @@ https://cloud.spring.io/spring-cloud-dataflow/
 
 To take advantage of this framework, a SCDF Admin server needs to be running (and integrated) with a supported platform. In the case of this sample, that runtime is PCF.
 
-This is a quick sample to get the Spring Cloud Dataflow (SCDF) Admin Application running on PCF. There is scripts for PWS (version of PCF running on AWS managed by Pivotal) and for PCF running on one of it's supported platforms (Azure/GCP/AWS/vSphere/Open Stack). The difference with these scripts is the PWS script sets up the required services as well installs the Admin. For the generic PCF script, the required services need to be created prior to running the script. The better option for these users is the following tile. It sets up everything required and is kept in sync with the SCDF roadmap:
+This is a quick sample to get the Spring Cloud Dataflow (SCDF) Admin Application running on PCF. There is scripts for PWS (version of PCF running on AWS managed by Pivotal) and for PCF running on one of it's supported platforms (Azure/GCP/AWS/vSphere/Open Stack). The difference with these scripts is the PWS script sets up the required services as well installs the Admin. For the generic PCF script, the required services need to be created prior to running the script.
+
+The best option, if you host a PCF installation of your own, is to use the following tile. It sets up everything required and is kept in sync with the SCDF roadmap:
 
 http://docs.pivotal.io/scdf/
 
