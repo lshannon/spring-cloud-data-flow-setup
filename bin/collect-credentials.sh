@@ -18,8 +18,30 @@
   echo "Read In: $SPACE"
   echo ""
 
+  echo 'Enter the API (default is:https://api.run.pivotal.io)'
+  read API
+  echo "Read In: $API"
+  echo ""
+
+  if [ -z "$API" ]; then
+    echo "Using default API"
+    echo ""
+    API='https://api.run.pivotal.io'
+  fi
+
   echo "Credentials we will be using. Username: $USERNAME Password: ******** Organization: $ORG Space: $SPACE"
   echo ""
+
+  #PCF has limit on the length of characters a route can be - as routes are based on app names we, need to shorten this
+  source bin/trim-names.sh
+
+  BASE_NAME=$(trimname $ORG $SPACE)
+
+  # Create the names for the services and application
+  ADMIN="$BASE_NAME-dataflow-server"
+  REDIS="$BASE_NAME-scdf-redis"
+  RABBIT="scdf-rabbitmq-queue"
+  MYSQL="$BASE_NAME-scdf-mysql"
 
   echo "Are these credentials correct? (Type 'Y' to proceed)"
   read CONFIRMATION
@@ -29,5 +51,5 @@
   fi
 
   echo "Trying to login"
-  cf login -a https://api.run.pivotal.io -u $USERNAME -p $PASSWORD -o $ORG -s $SPACE
+  cf login -a $API -u $USERNAME -p $PASSWORD -o $ORG -s $SPACE
   echo ""

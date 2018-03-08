@@ -1,6 +1,6 @@
-echo "*************************************"
-echo "*   Message Processing PWS Set Up		*"
-echo "*************************************"
+echo "*******************************************"
+echo "*  Spring Cloud Data Flow Admin Set Up		 *"
+echo "*******************************************"
 
 # Read In Sensitive Data
 
@@ -9,7 +9,7 @@ echo "The script will prompt for your Username, Password, Organization and Space
 echo "This samples requires a more robust RabbitMQ plan (ie: Tiger)"
 
 #Run script to collection credentails
-. bin/collect_credentials.sh
+source bin/collect_credentials.sh
 
 echo "The Data Server will be called: $ADMIN "
 echo "Redis Serivce: $REDIS"
