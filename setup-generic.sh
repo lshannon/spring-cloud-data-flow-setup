@@ -9,20 +9,53 @@ echo "The script will prompt for your Username, Password, Organization and Space
 echo "This samples requires a more robust RabbitMQ plan (ie: Tiger)"
 
 #Run script to collection credentails
-source bin/collect_credentials.sh
+source bin/collect-credentials.sh
 
 echo "The Data Server will be called: $ADMIN "
+
+echo 'Enter the Redis Service Name:'
+read REDIS
+echo "Read In: $REDIS"
+echo ""
+
+if [ -z "$REDIS" ]; then
+	echo "The name of a Redis Service must be supplied"
+	echo "Program Terminating"
+	exit 0;
+fi
+
+echo 'Enter the Rabbit Service Name:'
+read RABBIT
+echo "Read In: $RABBIT"
+echo ""
+
+if [ -z "$RABBIT" ]; then
+	echo "The name of a Rabbit Service must be supplied"
+	echo "Program Terminating"
+	exit 0;
+fi
+
+echo 'Enter the MySQL Service Name:'
+read MYSQL
+echo "Read In: $MYSQL"
+echo ""
+
+if [ -z "$MYSQL" ]; then
+	echo "The name of a Rabbit Service must be supplied"
+	echo "Program Terminating"
+	exit 0;
+fi
+
+echo "The following services will be bound to the SCDF admin application: "
 echo "Redis Serivce: $REDIS"
 echo "Rabbit Service: $RABBIT"
 echo "MySQL: $MYSQL"
 echo ""
 
 echo "The following commands will be ran to set up your Server:"
-echo "cf create-service rediscloud 30mb $REDIS"
-echo "cf create-service cleardb spark $MYSQL"
-echo "(If you don't have it already) wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar"
-echo "(If you don't have it already) wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar"
-echo "cf push $ADMIN --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar"
+echo "(If you don't have it already) wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.3.0.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar"
+echo "(If you don't have it already) http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.3.1.RELEASE/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar"
+echo "cf push $ADMIN --no-start -m 2G -k 2G --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar"
 echo "cf bind-service $ADMIN $REDIS"
 echo "cf bind-service $ADMIN $RABBIT"
 echo "cf bind-service $ADMIN $MYSQL"
@@ -37,6 +70,7 @@ echo "cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD ********* > 
 echo "cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG $ORG"
 echo "cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE $SPACE"
 echo "cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_API_TIMEOUT 500"
+#Uncomment for debugging issues
 #echo "cf set-env $ADMIN JAVA_OPTS '-Dlogging.level.cloudfoundry-client=DEBUG -Dlogging.level.reactor.ipc.netty=DEBUG'"
 echo "$ADMIN"
 echo ""
@@ -48,15 +82,7 @@ if [ "$CONFIRMATION" != "Y" ]; then
 	exit 0;
 fi
 
-echo "Creating the required Redis Service"
-	cf create-service rediscloud 30mb $REDIS
-echo ""
-
-echo "Creating the required MySql Service"
-	cf create-service cleardb spark $MYSQL
-echo ""
-
-echo "Checking for the Data Server Artifact to deploy to PWS: spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar"
+echo "Checking for the Data Server Artifact to deploy to PWS: spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar"
 echo ""
 
 #make the directory if it does not exist
@@ -79,7 +105,7 @@ fi
 echo ""
 
 echo "Pusing the Server to PCF"
-	cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G -p server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar
+	cf push $ADMIN --no-start -m 2G -k 2G --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar
 echo ""
 
 echo "Binding the Redis Service to the Server"
@@ -108,6 +134,7 @@ cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD $PASSWORD > /dev/n
 cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG $ORG
 cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE $SPACE
 cf set-env $ADMIN SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_API_TIMEOUT 500
+#uncomment for debugging
 #cf set-env $ADMIN JAVA_OPTS '-Dlogging.level.cloudfoundry-client=DEBUG -Dlogging.level.reactor.ipc.netty=DEBUG'
 echo ""
 

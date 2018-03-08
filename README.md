@@ -28,6 +28,22 @@ The scripts in this project execute the following steps to get the Admin server 
 6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF and Redis + Rabbit
 7. Start the Server
 
+### 3rd Party services
+
+As listed above, a few services are created. The following is a quick review of what they are used for.
+
+#### Rabbit
+
+Data bus used to pass messages between services.
+
+#### Redis
+
+Used for counters and in-memory analytics that can be collected as data flows through a streams. If not using analytics, this service is not required
+
+#### MySql
+
+Used for store batch data. If no DB is supplied, SCDF will use an embedded H2. H2 is not suitable for production work loads. Using a DB like MySQL or Postgres is required for production workloads.
+
 ### Setting Up On PWS
 
 Running setup-pws.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguments. These are required for the admin server to be able to create and manage data streams.
