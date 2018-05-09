@@ -18,13 +18,19 @@ echo "Rabbit Service: $RABBIT"
 echo "MySQL: $MYSQL"
 echo ""
 
+#Binaries and application names to USERNAME
+SCDF_SERVER_URL='http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.4.0.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.4.0.RELEASE.jar'
+SCDF_SERVER_NAME='spring-cloud-dataflow-server-cloudfoundry-1.4.0.RELEASE.jar'
+SCDF_SHELL_URL='http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.4.0.RELEASE/spring-cloud-dataflow-shell-1.4.0.RELEASE.jar'
+SCDF_SHELL_NAME='spring-cloud-dataflow-shell-1.4.0.RELEASE.jar'
+
 echo "The following commands will be ran to set up your Server:"
 echo "cf create-service cloudamqp lemur $RABBIT"
 echo "cf create-service rediscloud 30mb $REDIS"
 echo "cf create-service cleardb spark $MYSQL"
-echo "(If you don't have it already) wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.3.0.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar"
-echo "(If you don't have it already) http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.3.1.RELEASE/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar"
-echo "cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar"
+echo "(If you don't have it already) wget $SCDF_SERVER_URL"
+echo "(If you don't have it already) wget $SCDF_SHELL_URL"
+echo "cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G --no-start -p server/$SCDF_SERVER_NAME"
 echo "cf bind-service $ADMIN $REDIS"
 echo "cf bind-service $ADMIN $RABBIT"
 echo "cf bind-service $ADMIN $MYSQL"
@@ -63,15 +69,15 @@ echo "Creating the required MySql Service"
 	cf create-service cleardb spark $MYSQL
 echo ""
 
-echo "Checking for the Data Server Artifact to deploy to PWS: spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar"
+echo "Checking for the Data Server Artifact to deploy to PWS: $SCDF_SERVER_NAME"
 echo ""
 
 #make the directory if it does not exist
 mkdir -p server
 
-if [ ! -f server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar ]; then
+if [ ! -f server/$SCDF_SERVER_NAME ]; then
 	echo "Downloading the Server App for Pivotal Cloud Foundry. This will be deployed in Cloud Foundry"
-	wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.3.0.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar -P server
+	wget $SCDF_SERVER_URL -P server
 fi
 echo ""
 
@@ -79,14 +85,14 @@ echo ""
 mkdir -p shell
 
 echo "Checking for the Data Flow shell for local use: spring-cloud-dataflow-shell-1.3.1.RELEASE.jar"
-if [ ! -f shell/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar ]; then
+if [ ! -f shell/$SCDF_SHELL_NAME ]; then
 	echo "Downloading the Shell Application to run locally to connect to the server in PCF"
-	wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.3.1.RELEASE/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar -P shell
+	wget $SCDF_SHELL_URL -P shell
 fi
 echo ""
 
 echo "Pusing the Server to PCF"
-	cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.3.0.RELEASE.jar
+	cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G --no-start -p server/$SCDF_SERVER_NAME
 echo ""
 
 echo "Binding the Redis Service to the Server"
