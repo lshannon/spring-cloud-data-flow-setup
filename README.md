@@ -61,32 +61,34 @@ A preview of these commands to be ran to set up the Admin is previewed at the st
 
 ...
 
-The Data Server will be called: cloud-nativedevelopment-dataflow-server
-Redis Serivce: cloud-nativedevelopment-scdf-redis
-Rabbit Service: cloud-nativedevelopment-scdf-rabbit
-MySQL: cloud-nativedevelopment-scdf-mysql
+The Data Server will be called: cloudeve-dataflow-server 
+The following services will be created: 
+Redis Serivce: cloudeve-scdf-redis
+Rabbit Service: cloudeve-scdf-rabbitmq
+MySQL: cloudeve-scdf-mysql
 
 The following commands will be ran to set up your Server:
-cf create-service rediscloud 30mb cloud-nativedevelopment-scdf-redis
-cf create-service cloudamqp lemur cloud-nativedevelopment-scdf-rabbit
-cf create-service cleardb spark cloud-nativedevelopment-scdf-mysql
-(If you don't have it already) wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.2.4.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
-(If you don't have it already) wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.2.3.RELEASE/spring-cloud-dataflow-shell-1.2.3.RELEASE.jar
-cf push cloud-nativedevelopment-dataflow-server --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.2.4.RELEASE.jar
-cf bind-service cloud-nativedevelopment-dataflow-server cloud-nativedevelopment-scdf-redis
-cf bind-service cloud-nativedevelopment-dataflow-server cloud-nativedevelopment-scdf-rabbit
-cf bind-service cloud-nativedevelopment-dataflow-server cloud-nativedevelopment-scdf-mysql
-cf set-env cloud-nativedevelopment-dataflow-server MAVEN_REMOTE_REPOSITORIES_REPO1_URL https://repo.spring.io/libs-snapshot
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL https://api.run.pivotal.io
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN cfapps.io
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_SERVICES cloud-nativedevelopment-scdf-rabbit
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SKIP_SSL_VALIDATION false
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SERVICES cloud-nativedevelopment-scdf-redis,cloud-nativedevelopment-scdf-rabbit
+cf create-service cloudamqp lemur cloudeve-scdf-rabbitmq
+cf create-service rediscloud 30mb cloudeve-scdf-redis
+cf create-service cleardb spark cloudeve-scdf-mysql
+(If you don't have it already) wget http://repo.spring.io/libs-release/org/springframework/cloud/spring-cloud-dataflow-server-cloudfoundry/1.4.0.RELEASE/spring-cloud-dataflow-server-cloudfoundry-1.4.0.RELEASE.jar
+(If you don't have it already) wget http://repo.spring.io/release/org/springframework/cloud/spring-cloud-dataflow-shell/1.4.0.RELEASE/spring-cloud-dataflow-shell-1.4.0.RELEASE.jar
+cf push cloudeve-dataflow-server --no-start -b java_buildpack -m 2G -k 2G --no-start -p server/spring-cloud-dataflow-server-cloudfoundry-1.4.0.RELEASE.jar
+cf bind-service cloudeve-dataflow-server cloudeve-scdf-redis
+cf bind-service cloudeve-dataflow-server cloudeve-scdf-rabbitmq
+cf bind-service cloudeve-dataflow-server cloudeve-scdf-mysql
+cf set-env cloudeve-dataflow-server MAVEN_REMOTE_REPOSITORIES_REPO1_URL https://repo.spring.io/libs-snapshot
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_URL https://api.run.pivotal.io
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_DOMAIN cfapps.io
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_SERVICES cloudeve-scdf-rabbitmq
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SERVICES cloudeve-scdf-redis,cloudeve-scdf-mysql
 Setting Env for Username and Password silently
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_USERNAME ********* > /dev/null
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD ********* > /dev/null
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG cloud-native
-cf set-env cloud-nativedevelopment-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE development
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_USERNAME luke.shannon@gmail.com > /dev/null
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_PASSWORD ********* > /dev/null
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_ORG cloud-native
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_SPACE development
+cf set-env cloudeve-dataflow-server SPRING_CLOUD_DEPLOYER_CLOUDFOUNDRY_STREAM_API_TIMEOUT 500
+cloudeve-dataflow-server
 
 Do you wish to run these commands (there will be a charge for all these services in PWS)? (Type 'Y' to proceed)
 
@@ -109,8 +111,7 @@ The dashboard will provide information about the Streams running and other usefu
 Next step is too connect a locally running Spring Cloud Shell to the running server to create the famous TickTock stream. To do this start the Shell application locally and use the `dataflow config server` command to connect to the server.
 
 ```shell
-
-➜  spring-cloud-data-flow-setup git:(master) java -jar shell/spring-cloud-dataflow-shell-1.3.1.RELEASE.jar
+luke@luke-Precision-5510:~/source/spring-cloud-data-flow-setup$ java -jar shell/spring-cloud-dataflow-shell-1.4.0.RELEASE.jar
   ____                              ____ _                __
  / ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
  \___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
@@ -122,11 +123,10 @@ Next step is too connect a locally running Spring Cloud Shell to the running ser
  | |_| | (_| | || (_| | |  _| | | (_) \ V  V /    / / / / / /
  |____/ \__,_|\__\__,_| |_|   |_|\___/ \_/\_/    /_/_/_/_/_/
 
-1.3.1.RELEASE
+1.4.0.RELEASE
 
 Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
 server-unknown:>
-
 
 ```
 Now we can connect to the Server
