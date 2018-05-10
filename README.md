@@ -4,9 +4,9 @@ Spring Cloud Data Flow (SCDF) provides a framework for creating, operating and m
 
 https://cloud.spring.io/spring-cloud-dataflow/
 
-To take advantage of this framework, a SCDF Admin server needs to be running (and integrated) with a supported platform. In the case of this sample, that runtime is PCF.
+To take advantage of this framework, a SCDF Server needs to be running (and integrated) with a supported platform. In the case of this sample, that runtime is PWS (a managed PCF running on AWS).
 
-This is a quick sample to get the Spring Cloud Dataflow (SCDF) Admin Application running on PCF. There is scripts for PWS (version of PCF running on AWS managed by Pivotal) and for PCF running on one of it's supported platforms (Azure/GCP/AWS/vSphere/Open Stack). The difference with these scripts is the PWS script sets up the required services as well installs the Admin. For the generic PCF script, the required services need to be created prior to running the script.
+This is a quick sample to get the Spring Cloud Dataflow (SCDF) Server running on PWS.
 
 The best option, if you host a PCF installation of your own, is to use the following tile. It sets up everything required and is kept in sync with the SCDF roadmap:
 
@@ -18,14 +18,15 @@ https://docs.spring.io/spring-cloud-dataflow-server-cloudfoundry/docs/1.3.0.RELE
 
 ## Setting Up The SCDF Server
 
-The SCDF Server gets stream definitions submitted to it, its uses the platform its running in to then generate and deploy Spring Boot applications (into the same platform it's running in) to perform the steps in the stream. For example, read files from message queue, transform them, and then write them into HDFS.
+The SCDF Server gets stream definitions submitted to it, its uses the platform its running in to orchestrate the applications that perform each step in the data pipeline.
 
 The scripts in this project execute the following steps to get the Admin server running on PCF.
 
-1. Download the SCDF Admin project
-2. Download the Spring Cloud Shell project (used to submit streams from a local machine to the server)
-3. Create a Redis Service in PCF
+1. Download the SCDF Server Application (Spring Boot App)
+2. Download the Spring Cloud Shell project (used to submit streams from a local machine to the Server)
+3. Create a Redis Service in PCF (optional)
 4. Create a Rabbit Service in PCF
+5. Create a MySQL service (optional)
 5. Push the Server project into PCF (stopped)
 6. Set up environmental variables for the Server to integrate with the elastic runtime of PCF and Redis + Rabbit
 7. Start the Server
@@ -34,23 +35,23 @@ The scripts in this project execute the following steps to get the Admin server 
 
 As listed above, a few services are created. The following is a quick review of what they are used for.
 
-#### Rabbit
+#### Rabbit (Required)
 
 Data bus used to pass messages between services.
 
-#### Redis
+#### Redis (Optional)
 
 Used for counters and in-memory analytics that can be collected as data flows through a streams. If not using analytics, this service is not required
 
-#### MySql
+#### MySql (Optional)
 
 Used for store batch data. If no DB is supplied, SCDF will use an embedded H2. H2 is not suitable for production work loads. Using a DB like MySQL or Postgres is required for production workloads.
 
 ### Setting Up On PWS
 
-Running setup-pws.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguments. These are required for the admin server to be able to create and manage data streams.
+Running setup-pws.sh will perform all the steps on PWS (run.pivotal.io). The script will prompt for the organization, space, username and password as arguments. These are required for the server to be able to create and manage data streams.
 
-The script will create an Admin Service instance based on a trimmed version the names of the Org and Space.
+The script will create an Admin Server instance based on a trimmed version the names of the Org and Space.
 
 A preview of these commands to be ran to set up the Admin is previewed at the start of the script. This provides a chance to cancel if a mistake was made, or if doing something cool is too scary for you.
 
@@ -93,7 +94,7 @@ Do you wish to run these commands (there will be a charge for all these services
 
 ```
 
-NOTE: **Do not leave this SDCF Streams running in PWS unless their are serving a business purpose**. As PWS bills based on usage, a running stream can run up a serious bill. If you are doing this for learning, use the clean up script to delete the Server and its services once you are done with your stream.
+NOTE: **Do not leave this SDCF Streams running in PWS unless they are serving a business purpose**. As PWS bills based on usage, a running stream can run up a serious bill. If you are doing this for learning, use the cleanup.sh script to delete the Server and its services once you are done with your stream.
 
 Upon successful completion of the script, a Spring Cloud Data Flow server will be running on PWS.
 
