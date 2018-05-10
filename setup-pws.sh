@@ -1,10 +1,10 @@
 echo "*********************************************************"
-echo "*   Spring Cloud Dataflow (SCDF) Admin Set Up For PWS		*"
+echo "*   Spring Cloud Dataflow (SCDF) Server Set Up For PWS  *"
 echo "*********************************************************"
 
 # Read In Sensitive Data
 
-echo "This script will set up a SCDF Admin"
+echo "This script will set up a SCDF Server"
 echo "The script will prompt for your Username, Password, Organization and Space"
 echo "This script will create services"
 
