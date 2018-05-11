@@ -43,7 +43,7 @@ Data bus used to pass messages between services.
 
 Used for counters and in-memory analytics that can be collected as data flows through a streams. If not using analytics, this service is not required
 
-#### MySql (Optional)
+#### MySql (Required)
 
 Used for store batch data. If no DB is supplied, SCDF will use an embedded H2. H2 is not suitable for production work loads. Using a DB like MySQL or Postgres is required for production workloads.
 
