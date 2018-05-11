@@ -12,6 +12,7 @@ echo "The following commands will be ran to set up your Server:"
 echo "cf delete $ADMIN -f"
 echo "cf delete-service $REDIS -f"
 echo "cf delete-service $MYSQL -f"
+echo "cf delete-service $RABBIT -f"
 echo "cf delete-orphaned-routes -f"
 echo ""
 
@@ -24,6 +25,11 @@ fi
 
 echo "Deleting the Server in PWS"
 	cf delete $ADMIN -f
+echo ""
+
+
+echo "Deleting the Redis Service"
+	cf delete-service $RABBIT -f
 echo ""
 
 echo "Deleting the Redis Service"
