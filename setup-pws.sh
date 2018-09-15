@@ -8,12 +8,12 @@ echo "This script will set up a SCDF Server"
 echo "The script will prompt for your Username, Password, Organization and Space"
 echo "This script will create services"
 
-#Run script to collection credentails
+#Run script to collection credentials
 source bin/collect-credentials.sh
 
 echo "The Data Server will be called: $ADMIN "
 echo "The following services will be created: "
-echo "Redis Serivce: $REDIS"
+echo "Redis Service: $REDIS"
 echo "Rabbit Service: $RABBIT"
 echo "MySQL: $MYSQL"
 echo ""
@@ -91,7 +91,7 @@ if [ ! -f shell/$SCDF_SHELL_NAME ]; then
 fi
 echo ""
 
-echo "Pusing the Server to PCF"
+echo "Pushing the Server to PCF"
 	cf push $ADMIN --no-start -b java_buildpack -m 2G -k 2G --no-start -p server/$SCDF_SERVER_NAME
 echo ""
 
