@@ -1,0 +1,238 @@
+Get all lowest level details on a streams (this is a manifest)
+dataflow:>stream manifest --name l1
+"apiVersion": "skipper.spring.io/v1"
+"kind": "SpringCloudDeployerApplication"
+"metadata":
+  "name": "log"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:log-sink-rabbit"
+  "resourceMetadata": "maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar:metadata:1.3.1.RELEASE"
+  "version": "1.3.1.RELEASE"
+  "applicationProperties":
+    "spring.metrics.export.triggers.application.includes": "integration**"
+    "spring.cloud.dataflow.stream.app.label": "log"
+    "spring.cloud.stream.metrics.key": "l1.log.${spring.cloud.application.guid}"
+    "spring.cloud.stream.bindings.input.group": "l1"
+    "spring.cloud.stream.metrics.properties": "spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
+    "spring.cloud.dataflow.stream.name": "l1"
+    "spring.cloud.dataflow.stream.app.type": "sink"
+    "spring.cloud.stream.bindings.input.destination": "l1.time"
+  "deploymentProperties":
+    "spring.cloud.deployer.group": "l1"
+---
+"apiVersion": "skipper.spring.io/v1"
+"kind": "SpringCloudDeployerApplication"
+"metadata":
+  "name": "time"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:time-source-rabbit"
+  "resourceMetadata": "maven://org.springframework.cloud.stream.app:time-source-rabbit:jar:metadata:1.3.1.RELEASE"
+  "version": "1.3.1.RELEASE"
+  "applicationProperties":
+    "spring.metrics.export.triggers.application.includes": "integration**"
+    "spring.cloud.dataflow.stream.app.label": "time"
+    "spring.cloud.stream.metrics.key": "l1.time.${spring.cloud.application.guid}"
+    "spring.cloud.stream.bindings.output.producer.requiredGroups": "l1"
+    "spring.cloud.stream.metrics.properties": "spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
+    "spring.cloud.stream.bindings.output.destination": "l1.time"
+    "spring.cloud.dataflow.stream.name": "l1"
+    "spring.cloud.dataflow.stream.app.type": "source"
+  "deploymentProperties":
+    "spring.cloud.deployer.group": "l1"
+
+dataflow:>
+
+Change the version of a component:
+
+dataflow:>app info --name log --type sink
+Information about sink application 'log':
+Version: '1.3.1.RELEASE':
+Default application version: 'true':
+Resource URI: maven://org.springframework.cloud.stream.app:log-sink-rabbit:1.3.1.RELEASE
+╔══════════════════════════════╤══════════════════════════════╤══════════════════════════════╤══════════════════════════════╗
+║         Option Name          │         Description          │           Default            │             Type             ║
+╠══════════════════════════════╪══════════════════════════════╪══════════════════════════════╪══════════════════════════════╣
+║log.name                      │The name of the logger to use.│<none>                        │java.lang.String              ║
+║log.level                     │The level at which to log     │<none>                        │org.springframework.integratio║
+║                              │messages.                     │                              │n.handler.LoggingHandler$Level║
+║log.expression                │A SpEL expression (against the│payload                       │java.lang.String              ║
+║                              │incoming message) to evaluate │                              │                              ║
+║                              │as the logged message.        │                              │                              ║
+╚══════════════════════════════╧══════════════════════════════╧══════════════════════════════╧══════════════════════════════╝
+
+dataflow:>app register --name log --type sink --uri maven://org.springframework.cloud.stream.app:log-sink-rabbit:1.2.0.RELEASE
+Successfully registered application 'sink:log'
+
+
+Stream history:
+
+dataflow:>stream history --name l1
+╔═══════╤════════════════════════════╤════════╤════════════╤═══════════════╤════════════════╗
+║Version│        Last updated        │ Status │Package Name│Package Version│  Description   ║
+╠═══════╪════════════════════════════╪════════╪════════════╪═══════════════╪════════════════╣
+║1      │Thu Dec 13 13:32:21 EST 2018│DEPLOYED│l1          │1.0.0          │Install complete║
+╚═══════╧════════════════════════════╧════════╧════════════╧═══════════════╧════════════════╝
+
+dataflow:>
+
+Update a stream:
+
+dataflow:>stream update --name l1 --properties version.log=1.2.0.RELEASE
+
+- This will create a v2 of the app, while v1 is still Running
+- Both get messages from RABBIT
+- If v2 has a good health report, spins down v1
+- This all is managed by state machine
+
+New History
+
+dataflow:>stream history --name l1
+╔═══════╤════════════════════════════╤════════╤════════════╤═══════════════╤════════════════╗
+║Version│        Last updated        │ Status │Package Name│Package Version│  Description   ║
+╠═══════╪════════════════════════════╪════════╪════════════╪═══════════════╪════════════════╣
+║2      │Thu Dec 13 14:15:53 EST 2018│DEPLOYED│l1          │1.0.0          │Upgrade complete║
+║1      │Thu Dec 13 13:32:21 EST 2018│DELETED │l1          │1.0.0          │Delete complete ║
+╚═══════╧════════════════════════════╧════════╧════════════╧═══════════════╧════════════════╝
+
+New manifest
+dataflow:>stream manifest --name l1
+"apiVersion": "skipper.spring.io/v1"
+"kind": "SpringCloudDeployerApplication"
+"metadata":
+  "name": "log"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:log-sink-rabbit"
+  "resourceMetadata": "maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar:metadata:1.2.0.RELEASE"
+  "version": "1.2.0.RELEASE"
+  "applicationProperties":
+    "spring.metrics.export.triggers.application.includes": "integration**"
+    "spring.cloud.dataflow.stream.app.label": "log"
+    "spring.cloud.stream.metrics.key": "l1.log.${spring.cloud.application.guid}"
+    "spring.cloud.stream.bindings.input.group": "l1"
+    "spring.cloud.stream.metrics.properties": "spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
+    "spring.cloud.dataflow.stream.name": "l1"
+    "spring.cloud.dataflow.stream.app.type": "sink"
+    "spring.cloud.stream.bindings.input.destination": "l1.time"
+  "deploymentProperties":
+    "spring.cloud.deployer.count": "1"
+    "spring.cloud.deployer.group": "l1"
+---
+"apiVersion": "skipper.spring.io/v1"
+"kind": "SpringCloudDeployerApplication"
+"metadata":
+  "name": "time"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:time-source-rabbit"
+  "resourceMetadata": "maven://org.springframework.cloud.stream.app:time-source-rabbit:jar:metadata:1.3.1.RELEASE"
+  "version": "1.3.1.RELEASE"
+  "applicationProperties":
+    "spring.metrics.export.triggers.application.includes": "integration**"
+    "spring.cloud.dataflow.stream.app.label": "time"
+    "spring.cloud.stream.metrics.key": "l1.time.${spring.cloud.application.guid}"
+    "spring.cloud.stream.bindings.output.producer.requiredGroups": "l1"
+    "spring.cloud.stream.metrics.properties": "spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
+    "spring.cloud.stream.bindings.output.destination": "l1.time"
+    "spring.cloud.dataflow.stream.name": "l1"
+    "spring.cloud.dataflow.stream.app.type": "source"
+  "deploymentProperties":
+    "spring.cloud.deployer.group": "l1"
+
+Note that time was not touched
+
+Another update happens, this time to make the Stream error level to logs
+
+dataflow:>stream update --name l1 --properties app.log.log.level=ERROR
+Update request has been sent for the stream 'l1'
+dataflow:>
+!           //          app         cls         dataflow    date        exit        help        http        job         runtime     script      stream      system
+task        version
+dataflow:>stream list
+╔═══════════╤════════════════════════════╤═════════════════════════════════════════╗
+║Stream Name│     Stream Definition      │                 Status                  ║
+╠═══════════╪════════════════════════════╪═════════════════════════════════════════╣
+║l1         │time | log --log.level=ERROR│The stream has been successfully deployed║
+╚═══════════╧════════════════════════════╧═════════════════════════════════════════╝
+
+dataflow:>stream history
+You should specify a default option, otherwise known as 'name' for this command
+dataflow:>stream
+stream all              stream create           stream deploy           stream destroy          stream history          stream info             stream list
+stream manifest         stream platform-list    stream rollback         stream undeploy         stream update           stream validate
+dataflow:>stream
+stream all              stream create           stream deploy           stream destroy          stream history          stream info             stream list
+stream manifest         stream platform-list    stream rollback         stream undeploy         stream update           stream validate
+dataflow:>stream history --name
+
+required --name: the name of the stream; no default value
+dataflow:>stream history --name l1
+╔═══════╤════════════════════════════╤════════╤════════════╤═══════════════╤════════════════╗
+║Version│        Last updated        │ Status │Package Name│Package Version│  Description   ║
+╠═══════╪════════════════════════════╪════════╪════════════╪═══════════════╪════════════════╣
+║3      │Thu Dec 13 14:21:22 EST 2018│DEPLOYED│l1          │1.0.0          │Upgrade complete║
+║2      │Thu Dec 13 14:15:53 EST 2018│DELETED │l1          │1.0.0          │Delete complete ║
+║1      │Thu Dec 13 13:32:21 EST 2018│DELETED │l1          │1.0.0          │Delete complete ║
+╚═══════╧════════════════════════════╧════════╧════════════╧═══════════════╧════════════════╝
+
+
+Now we have had three version.
+
+Now we will do a rollback
+
+dataflow:>stream rollback --name l1
+
+required --name: the name of the stream to rollback; no default value
+dataflow:>stream rollback --name l1 --releaseVersion 1
+Rollback request has been sent for the stream 'l1'
+dataflow:>stream list
+╔═══════════╤═════════════════╤════════════════════════════════════════════════════════════════════════════════════╗
+║Stream Name│Stream Definition│                                       Status                                       ║
+╠═══════════╪═════════════════╪════════════════════════════════════════════════════════════════════════════════════╣
+║l1         │time | log       │In the case of multiple apps, some have successfully deployed, while others have not║
+╚═══════════╧═════════════════╧════════════════════════════════════════════════════════════════════════════════════╝
+
+dataflow:>stream manifest --name
+
+required --name: the name of the stream; no default value
+dataflow:>stream manifest --name l1
+"apiVersion": "skipper.spring.io/v1"
+"kind": "SpringCloudDeployerApplication"
+"metadata":
+  "name": "log"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:log-sink-rabbit"
+  "resourceMetadata": "maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar:metadata:1.3.1.RELEASE"
+  "version": "1.3.1.RELEASE"
+  "applicationProperties":
+    "spring.metrics.export.triggers.application.includes": "integration**"
+    "spring.cloud.dataflow.stream.app.label": "log"
+    "spring.cloud.stream.metrics.key": "l1.log.${spring.cloud.application.guid}"
+    "spring.cloud.stream.bindings.input.group": "l1"
+    "spring.cloud.stream.metrics.properties": "spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
+    "spring.cloud.dataflow.stream.name": "l1"
+    "spring.cloud.dataflow.stream.app.type": "sink"
+    "spring.cloud.stream.bindings.input.destination": "l1.time"
+  "deploymentProperties":
+    "spring.cloud.deployer.count": "1"
+    "spring.cloud.deployer.group": "l1"
+---
+"apiVersion": "skipper.spring.io/v1"
+"kind": "SpringCloudDeployerApplication"
+"metadata":
+  "name": "time"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:time-source-rabbit"
+  "resourceMetadata": "maven://org.springframework.cloud.stream.app:time-source-rabbit:jar:metadata:1.3.1.RELEASE"
+  "version": "1.3.1.RELEASE"
+  "applicationProperties":
+    "spring.metrics.export.triggers.application.includes": "integration**"
+    "spring.cloud.dataflow.stream.app.label": "time"
+    "spring.cloud.stream.metrics.key": "l1.time.${spring.cloud.application.guid}"
+    "spring.cloud.stream.bindings.output.producer.requiredGroups": "l1"
+    "spring.cloud.stream.metrics.properties": "spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
+    "spring.cloud.stream.bindings.output.destination": "l1.time"
+    "spring.cloud.dataflow.stream.name": "l1"
+    "spring.cloud.dataflow.stream.app.type": "source"
+  "deploymentProperties":
+    "spring.cloud.deployer.group": "l1"
+
+Back to version 1

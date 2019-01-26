@@ -38,10 +38,12 @@
   BASE_NAME=$(trimname $ORG $SPACE)
 
   # Create the names for the services and application
-  ADMIN="$BASE_NAME-dataflow-server"
-  REDIS="$BASE_NAME-scdf-redis"
-  RABBIT="scdf-rabbitmq-queue"
-  MYSQL="$BASE_NAME-scdf-mysql"
+  SERVER="$BASE_NAME-server"
+  SKIPPER="$BASE_NAME-skipper"
+  RABBIT="$BASE_NAME-rabbitmq-queue"
+  POSTGRES_SERVER="$BASE_NAME-postgres-server"
+  POSTGRES_SKIPPER="$BASE_NAME-postgres-skipper"
+  SCHEDULER="$BASE_NAME-scheduler"
 
   echo "Are these credentials correct? (Type 'Y' to proceed)"
   read CONFIRMATION

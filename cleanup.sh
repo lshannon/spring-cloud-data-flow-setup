@@ -9,10 +9,12 @@ source bin/collect-credentials.sh
 
 #Review the commands to Run
 echo "The following commands will be ran to set up your Server:"
-echo "cf delete $ADMIN -f"
-echo "cf delete-service $REDIS -f"
-echo "cf delete-service $MYSQL -f"
+echo "cf delete $SERVER -f"
+echo "cf delete $SKIPPER -f"
+echo "cf delete-service $POSTGRES_SERVER -f"
+echo "cf delete-service $POSTGRES_SKIPPER -f"
 echo "cf delete-service $RABBIT -f"
+echo "cf delete-service $SCHEDULER -f"
 echo "cf delete-orphaned-routes -f"
 echo ""
 
@@ -24,20 +26,23 @@ if [ "$CONFIRMATION" != "Y" ]; then
 fi
 
 echo "Deleting the Server in PWS"
-	cf delete $ADMIN -f
+	cf delete $SERVER -f
 echo ""
 
+echo "Deleting Skipper in PWS"
+	cf delete $SKIPPER -f
+echo ""
 
-echo "Deleting the Redis Service"
+echo "Deleting the Rabbit Service"
 	cf delete-service $RABBIT -f
 echo ""
 
-echo "Deleting the Redis Service"
-	cf delete-service $REDIS -f
+echo "Deleting the Postgres Service"
+	cf delete-service $POSTGRES_SERVER -f
 echo ""
 
-echo "Deleting the MySql Service"
-	cf delete-service $MYSQL -f
+echo "Deleting the Postgres Service"
+	cf delete-service $POSTGRES_SKIPPER -f
 echo ""
 
 echo "Removing Orphaned Routes"
@@ -47,7 +52,7 @@ echo ""
 echo "Clean Up Completed"
 echo ""
 
-echo "Applications running in the space (some workers may still need to be deleted):"
+echo 'Applications running in the space (some workers may still need to be deleted):'
 echo ""
 OUTPUT="$(cf apps)"
 echo "$OUTPUT"
