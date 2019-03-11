@@ -1,7 +1,15 @@
-echo "*****************************"
-echo "* SCDF PWS CLEAN UP		      *"
-echo "*****************************"
-echo ""
+echo "********************************************************************************"
+echo "* "
+echo "* Spring Cloud Dataflow (SCDF) Server Clean Up For PWS Version: $SERVER_VERSION"
+echo "* Author: Luke Shannon "
+echo "* Git Repo: https://github.com/lshannon/spring-cloud-data-flow-setup "
+echo "* Disclaimer: This script cleans up a SCDF Install on PWS that was set up"
+echo "* with the set-up.sh script included in the repo"
+echo "* all services and data will be deleted without any attempt to"
+echo "* back up any of the data"
+echo "* "
+echo "********************************************************************************"
+printf "\n\n"
 echo "To delete the SCDF Server and all its services we will need credentials to your PWS account and the Org and Space"
 
 #Run script to collection credentails
@@ -43,6 +51,10 @@ echo ""
 
 echo "Deleting the Postgres Service"
 	cf delete-service $POSTGRES_SKIPPER -f
+echo ""
+
+echo "Deleting the Schedule Service"
+  cf delete-service $SCHEDULER -f
 echo ""
 
 echo "Removing Orphaned Routes"
