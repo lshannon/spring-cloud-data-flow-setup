@@ -61,8 +61,8 @@ A preview of these commands to be ran to set up the Admin is previewed at the st
 
 ...
 
-The Data Server will be called: cloudeve-dataflow-server 
-The following services will be created: 
+The Data Server will be called: cloudeve-dataflow-server
+The following services will be created:
 Redis Serivce: cloudeve-scdf-redis
 Rabbit Service: cloudeve-scdf-rabbitmq
 MySQL: cloudeve-scdf-mysql
@@ -111,19 +111,19 @@ The dashboard will provide information about the Streams running and other usefu
 Next step is too connect a locally running Spring Cloud Shell to the running server to create the famous TickTock stream. To do this start the Shell application locally and use the `dataflow config server` command to connect to the server.
 
 ```shell
-luke@luke-Precision-5510:~/source/spring-cloud-data-flow-setup$ java -jar shell/spring-cloud-dataflow-shell-1.4.0.RELEASE.jar
-  ____                              ____ _                __
- / ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
- \___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
-  ___) | |_) | |  | | | | | (_| | | |___| | (_) | |_| | (_| |
- |____/| .__/|_|  |_|_| |_|\__, |  \____|_|\___/ \__,_|\__,_|
-  ____ |_|    _          __|___/                 __________
- |  _ \  __ _| |_ __ _  |  ___| | _____      __  \ \ \ \ \ \
- | | | |/ _` | __/ _` | | |_  | |/ _ \ \ /\ / /   \ \ \ \ \ \
- | |_| | (_| | || (_| | |  _| | | (_) \ V  V /    / / / / / /
- |____/ \__,_|\__\__,_| |_|   |_|\___/ \_/\_/    /_/_/_/_/_/
+luke@luke-Precision-5510:~/source/spring-cloud-data-flow-setup$ java -jar shell/spring-cloud-dataflow-shell-1.7.3.RELEASE.jar --dataflow.mode=skipper
+____                              ____ _                __
+/ ___| _ __  _ __(_)_ __   __ _   / ___| | ___  _   _  __| |
+\___ \| '_ \| '__| | '_ \ / _` | | |   | |/ _ \| | | |/ _` |
+___) | |_) | |  | | | | | (_| | | |___| | (_) | |_| | (_| |
+|____/| .__/|_|  |_|_| |_|\__, |  \____|_|\___/ \__,_|\__,_|
+____ |_|    _          __|___/                 __________
+|  _ \  __ _| |_ __ _  |  ___| | _____      __  \ \ \ \ \ \
+| | | |/ _` | __/ _` | | |_  | |/ _ \ \ /\ / /   \ \ \ \ \ \
+| |_| | (_| | || (_| | |  _| | | (_) \ V  V /    / / / / / /
+|____/ \__,_|\__\__,_| |_|   |_|\___/ \_/\_/    /_/_/_/_/_/
 
-1.4.0.RELEASE
+1.7.3.RELEASE
 
 Welcome to the Spring Cloud Data Flow shell. For assistance hit TAB or type "help".
 server-unknown:>
@@ -133,8 +133,8 @@ Now we can connect to the Server
 
 ```shell
 
-server-unknown:>dataflow config server https://clouqa-dataflow-server.cfapps.io
-Shell mode: classic, Server mode: classic
+server-unknown:>dataflow config server --uri https://scdfdeve-server.cfapps.io
+Shell mode: skipper, Server mode: skipper
 dataflow:>
 
 ```
@@ -144,8 +144,8 @@ Next we will import the sources, sinks and processors handled by Spring Cloud Da
 from dataflow:
 
 ```shell
-app import --uri http://bit.ly/Celsius-SR1-stream-applications-rabbit-maven
-Successfully registered 65 applications from [source.sftp, source.mqtt.metadata, sink.mqtt.metadata, source.file.metadata, processor.tcp-client, source.s3.metadata, source.jms, source.ftp, processor.transform.metadata, source.time, sink.mqtt, sink.s3.metadata, processor.scriptable-transform, sink.log, source.load-generator, processor.transform, source.syslog, sink.websocket.metadata, sink.task-launcher-local.metadata, source.loggregator.metadata, source.s3, source.load-generator.metadata, processor.pmml.metadata, source.loggregator, source.tcp.metadata, processor.httpclient.metadata, sink.file.metadata, source.triggertask, source.twitterstream, source.gemfire-cq.metadata, processor.aggregator.metadata, source.mongodb, source.time.metadata, source.gemfire-cq, sink.counter.metadata, source.http, sink.tcp.metadata, sink.pgcopy.metadata, source.rabbit, sink.task-launcher-yarn, source.jms.metadata, sink.gemfire.metadata, sink.cassandra.metadata, processor.tcp-client.metadata, processor.header-enricher, sink.throughput, sink.task-launcher-local, processor.python-http, sink.aggregate-counter.metadata, sink.mongodb, processor.twitter-sentiment, sink.log.metadata, processor.splitter, sink.hdfs-dataset, source.tcp, processor.python-jython.metadata, source.trigger, source.mongodb.metadata, processor.bridge, source.http.metadata, source.rabbit.metadata, sink.ftp, sink.jdbc, source.jdbc.metadata, source.mqtt, processor.pmml, sink.aggregate-counter, sink.rabbit.metadata, processor.python-jython, sink.router.metadata, sink.cassandra, processor.filter.metadata, source.tcp-client.metadata, processor.header-enricher.metadata, processor.groovy-transform, source.ftp.metadata, sink.router, sink.redis-pubsub, source.tcp-client, processor.httpclient, sink.file, sink.websocket, source.syslog.metadata, sink.s3, sink.counter, sink.rabbit, processor.filter, source.trigger.metadata, source.mail.metadata, sink.gpfdist.metadata, sink.pgcopy, processor.python-http.metadata, sink.jdbc.metadata, sink.gpfdist, sink.ftp.metadata, processor.splitter.metadata, sink.sftp, sink.field-value-counter, processor.groovy-filter.metadata, processor.twitter-sentiment.metadata, source.triggertask.metadata, sink.hdfs, processor.groovy-filter, sink.redis-pubsub.metadata, source.sftp.metadata, processor.bridge.metadata, sink.field-value-counter.metadata, processor.groovy-transform.metadata, processor.aggregator, sink.sftp.metadata, processor.tensorflow.metadata, sink.throughput.metadata, sink.hdfs-dataset.metadata, sink.tcp, source.mail, sink.task-launcher-cloudfoundry.metadata, source.gemfire.metadata, processor.tensorflow, source.jdbc, sink.task-launcher-yarn.metadata, sink.gemfire, source.gemfire, source.twitterstream.metadata, sink.hdfs.metadata, processor.tasklaunchrequest-transform, sink.task-launcher-cloudfoundry, source.file, sink.mongodb.metadata, processor.tasklaunchrequest-transform.metadata, processor.scriptable-transform.metadata]
+dataflow:>app import --uri http://bit.ly/Celsius-SR3-stream-applications-rabbit-maven
+Successfully registered 65 applications from [source.sftp.metadata, sink.throughput.metadata, sink.cassandra.metadata, source.loggregator.metadata, source.s3, processor.aggregator.metadata, sink.hdfs, sink.rabbit, sink.ftp.metadata, processor.tasklaunchrequest-transform.metadata, sink.pgcopy, processor.httpclient, sink.jdbc, source.tcp, source.s3.metadata, sink.jdbc.metadata, sink.mongodb.metadata, sink.tcp.metadata, source.mqtt, source.gemfire.metadata, sink.hdfs-dataset, sink.gemfire.metadata, source.load-generator.metadata, sink.log, sink.redis-pubsub, sink.pgcopy.metadata, processor.python-http.metadata, sink.counter.metadata, processor.twitter-sentiment, sink.file.metadata, sink.s3.metadata, processor.python-http, sink.task-launcher-yarn, processor.tcp-client, sink.hdfs.metadata, sink.sftp.metadata, sink.tcp, source.sftp, source.http, sink.task-launcher-cloudfoundry.metadata, processor.groovy-filter.metadata, processor.splitter.metadata, source.syslog.metadata, source.file, processor.bridge, processor.tensorflow, sink.task-launcher-cloudfoundry, processor.tensorflow.metadata, sink.cassandra, processor.twitter-sentiment.metadata, processor.python-jython.metadata, source.time.metadata, source.tcp.metadata, sink.task-launcher-yarn.metadata, processor.transform.metadata, source.ftp.metadata, processor.scriptable-transform, source.triggertask.metadata, source.mqtt.metadata, source.jms.metadata, sink.task-launcher-local, source.syslog, source.file.metadata, processor.transform, source.time, processor.bridge.metadata, sink.s3, source.triggertask, source.gemfire-cq.metadata, source.trigger.metadata, source.jms, source.mail, sink.gpfdist.metadata, sink.mqtt.metadata, source.mongodb, source.rabbit, sink.router, source.ftp, sink.file, processor.groovy-transform.metadata, source.tcp-client, processor.scriptable-transform.metadata, processor.splitter, sink.gpfdist, source.gemfire, sink.redis-pubsub.metadata, source.load-generator, source.loggregator, processor.aggregator, processor.groovy-transform, processor.python-jython, sink.throughput, sink.hdfs-dataset.metadata, sink.ftp, processor.filter.metadata, sink.mqtt, source.trigger, sink.gemfire, processor.header-enricher.metadata, sink.sftp, processor.filter, source.jdbc, source.gemfire-cq, source.twitterstream, sink.rabbit.metadata, sink.field-value-counter, sink.websocket.metadata, processor.httpclient.metadata, sink.log.metadata, processor.tasklaunchrequest-transform, processor.tcp-client.metadata, sink.task-launcher-local.metadata, sink.websocket, source.jdbc.metadata, source.mail.metadata, source.rabbit.metadata, source.tcp-client.metadata, processor.pmml, sink.field-value-counter.metadata, sink.aggregate-counter.metadata, source.http.metadata, processor.groovy-filter, sink.counter, source.twitterstream.metadata, processor.header-enricher, sink.aggregate-counter, source.mongodb.metadata, processor.pmml.metadata, sink.router.metadata, sink.mongodb]
 
 ```
 To learn more about the Starters, check out the following:
@@ -154,41 +154,43 @@ https://cloud.spring.io/spring-cloud-stream-app-starters/
 To see the components that have been registered.
 
 ```shell
-
 dataflow:>app list
-╔══════════════╤═══════════════════════════╤══════════════════════════╤════╗
-║    source    │         processor         │           sink           │task║
-╠══════════════╪═══════════════════════════╪══════════════════════════╪════╣
-║file          │aggregator                 │aggregate-counter         │    ║
-║ftp           │bridge                     │cassandra                 │    ║
-║gemfire       │filter                     │counter                   │    ║
-║gemfire-cq    │groovy-filter              │field-value-counter       │    ║
-║http          │groovy-transform           │file                      │    ║
-║jdbc          │header-enricher            │ftp                       │    ║
-║jms           │httpclient                 │gemfire                   │    ║
-║load-generator│pmml                       │gpfdist                   │    ║
-║loggregator   │python-http                │hdfs                      │    ║
-║mail          │python-jython              │hdfs-dataset              │    ║
-║mongodb       │scriptable-transform       │jdbc                      │    ║
-║mqtt          │splitter                   │log                       │    ║
-║rabbit        │tasklaunchrequest-transform│mongodb                   │    ║
-║s3            │tcp-client                 │mqtt                      │    ║
-║sftp          │tensorflow                 │pgcopy                    │    ║
-║syslog        │transform                  │rabbit                    │    ║
-║tcp           │twitter-sentiment          │redis-pubsub              │    ║
-║tcp-client    │                           │router                    │    ║
-║time          │                           │s3                        │    ║
-║trigger       │                           │sftp                      │    ║
-║triggertask   │                           │task-launcher-cloudfoundry│    ║
-║twitterstream │                           │task-launcher-local       │    ║
-║              │                           │task-launcher-yarn        │    ║
-║              │                           │tcp                       │    ║
-║              │                           │throughput                │    ║
-║              │                           │websocket                 │    ║
-╚══════════════╧═══════════════════════════╧══════════════════════════╧════╝
-
+╔═══╤══════════════╤═══════════════════════════╤══════════════════════════╤════╗
+║app│    source    │         processor         │           sink           │task║
+╠═══╪══════════════╪═══════════════════════════╪══════════════════════════╪════╣
+║   │sftp          │tcp-client                 │mqtt                      │    ║
+║   │jms           │scriptable-transform       │log                       │    ║
+║   │ftp           │transform                  │task-launcher-yarn        │    ║
+║   │time          │header-enricher            │throughput                │    ║
+║   │load-generator│python-http                │task-launcher-local       │    ║
+║   │syslog        │twitter-sentiment          │mongodb                   │    ║
+║   │s3            │splitter                   │hdfs-dataset              │    ║
+║   │loggregator   │bridge                     │ftp                       │    ║
+║   │triggertask   │pmml                       │jdbc                      │    ║
+║   │twitterstream │python-jython              │aggregate-counter         │    ║
+║   │mongodb       │groovy-transform           │cassandra                 │    ║
+║   │gemfire-cq    │httpclient                 │router                    │    ║
+║   │http          │filter                     │redis-pubsub              │    ║
+║   │rabbit        │groovy-filter              │file                      │    ║
+║   │tcp           │aggregator                 │websocket                 │    ║
+║   │trigger       │tensorflow                 │s3                        │    ║
+║   │mqtt          │tasklaunchrequest-transform│rabbit                    │    ║
+║   │tcp-client    │                           │counter                   │    ║
+║   │mail          │                           │pgcopy                    │    ║
+║   │jdbc          │                           │gpfdist                   │    ║
+║   │gemfire       │                           │sftp                      │    ║
+║   │file          │                           │field-value-counter       │    ║
+║   │              │                           │hdfs                      │    ║
+║   │              │                           │tcp                       │    ║
+║   │              │                           │gemfire                   │    ║
+║   │              │                           │task-launcher-cloudfoundry│    ║
+╚═══╧══════════════╧═══════════════════════════╧══════════════════════════╧════╝
 ```
 As you can see, lots of great components here.
+
+There is a column here called 'app'. This is for the Stream Application DSL. This allows us to have an app that is a source and sink, meaning multiple inputs/multiple outputs:
+
+https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#spring-cloud-dataflow-stream-app-dsl
 
 To list the streams (none have been defined yet in this example)
 
@@ -201,13 +203,13 @@ dataflow:>stream list
 
 dataflow:>
 ```
-Our 'Hello World' will be the infamous 'ticktock' stream. It has two components. One that writes out the time another that writes that time to the log file. RabbitMQ is used to pass the time value as a message to the logging componet.
+Our 'Hello World' will be the infamous 'ticktock' stream. It has two components. One that writes out the time another that writes that time to the log file. RabbitMQ is used to pass the time value as a message to the logging component.
 
 To create the stream, run the following:
 
 ```shell
 
-dataflow:>stream create luketicktock --definition "time | log" --deploy
+dataflow:>stream create l1 --definition "time | log" --deploy
 Created new stream 'luketicktock'
 Deployment request has been sent
 dataflow:>

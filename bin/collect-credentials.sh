@@ -1,11 +1,25 @@
+#!/bin/bash
+# Author: Luke Shannon
+# Git Repo: https://github.com/lshannon/spring-cloud-data-flow-setup
+# Disclaimer: This script sets up SCDF for training and eductional purposes only - NOT FOR PRODUCTION
   echo 'Enter the PWS Username:'
-  read USERNAME
-  echo "Read In: $USERNAME"
+  if [ "$1" == 'echo' ] ; then
+      read USERNAME
+      echo "Read In: $USERNAME"
+  else
+    read -s USERNAME
+    echo "Got a Username but will not echo it for security"
+  fi
   echo ""
 
   echo 'Enter the PWS Password:'
-  read -s PASSWORD
-  echo "Got a Password but will not echo it for security"
+  if [ "$1" == 'echo' ] ; then
+    read PASSWORD
+    echo "Read In: $PASSWORD"
+  else
+    read -s PASSWORD
+    echo "Got a Password but will not echo it for security"
+  fi
   echo ""
 
   echo 'Enter the PWS Organization:'
@@ -29,7 +43,12 @@
     API='https://api.run.pivotal.io'
   fi
 
-  echo "Credentials we will be using. Username: $USERNAME Password: ******** Organization: $ORG Space: $SPACE"
+  if [ "$1" == 'echo' ] ; then
+    echo "Credentials we will be using. Username: $USERNAME Password: $PASSWORD Organization: $ORG Space: $SPACE"
+  else
+      echo "Credentials we will be using. Username: ******** Password: ******** Organization: $ORG Space: $SPACE"
+  fi
+
   echo ""
 
   #PCF has limit on the length of characters a route can be - as routes are based on app names we, need to shorten this
@@ -38,10 +57,12 @@
   BASE_NAME=$(trimname $ORG $SPACE)
 
   # Create the names for the services and application
-  ADMIN="$BASE_NAME-dataflow-server"
-  REDIS="$BASE_NAME-scdf-redis"
-  RABBIT="scdf-rabbitmq-queue"
-  MYSQL="$BASE_NAME-scdf-mysql"
+  SERVER="$BASE_NAME-server"
+  SKIPPER="$BASE_NAME-skipper"
+  RABBIT="$BASE_NAME-rabbitmq-queue"
+  POSTGRES_SERVER="$BASE_NAME-postgres-server"
+  POSTGRES_SKIPPER="$BASE_NAME-postgres-skipper"
+  SCHEDULER="$BASE_NAME-scheduler"
 
   echo "Are these credentials correct? (Type 'Y' to proceed)"
   read CONFIRMATION

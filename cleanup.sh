@@ -1,7 +1,15 @@
-echo "*****************************"
-echo "* SCDF PWS CLEAN UP		      *"
-echo "*****************************"
-echo ""
+echo "********************************************************************************"
+echo "* "
+echo "* Spring Cloud Dataflow (SCDF) Server Clean Up For PWS Version: $SERVER_VERSION"
+echo "* Author: Luke Shannon "
+echo "* Git Repo: https://github.com/lshannon/spring-cloud-data-flow-setup "
+echo "* Disclaimer: This script cleans up a SCDF Install on PWS that was set up"
+echo "* with the set-up.sh script included in the repo"
+echo "* all services and data will be deleted without any attempt to"
+echo "* back up any of the data"
+echo "* "
+echo "********************************************************************************"
+printf "\n\n"
 echo "To delete the SCDF Server and all its services we will need credentials to your PWS account and the Org and Space"
 
 #Run script to collection credentails
@@ -9,10 +17,12 @@ source bin/collect-credentials.sh
 
 #Review the commands to Run
 echo "The following commands will be ran to set up your Server:"
-echo "cf delete $ADMIN -f"
-echo "cf delete-service $REDIS -f"
-echo "cf delete-service $MYSQL -f"
+echo "cf delete $SERVER -f"
+echo "cf delete $SKIPPER -f"
+echo "cf delete-service $POSTGRES_SERVER -f"
+echo "cf delete-service $POSTGRES_SKIPPER -f"
 echo "cf delete-service $RABBIT -f"
+echo "cf delete-service $SCHEDULER -f"
 echo "cf delete-orphaned-routes -f"
 echo ""
 
@@ -24,20 +34,27 @@ if [ "$CONFIRMATION" != "Y" ]; then
 fi
 
 echo "Deleting the Server in PWS"
-	cf delete $ADMIN -f
+	cf delete $SERVER -f
 echo ""
 
+echo "Deleting Skipper in PWS"
+	cf delete $SKIPPER -f
+echo ""
 
-echo "Deleting the Redis Service"
+echo "Deleting the Rabbit Service"
 	cf delete-service $RABBIT -f
 echo ""
 
-echo "Deleting the Redis Service"
-	cf delete-service $REDIS -f
+echo "Deleting the Postgres Service"
+	cf delete-service $POSTGRES_SERVER -f
 echo ""
 
-echo "Deleting the MySql Service"
-	cf delete-service $MYSQL -f
+echo "Deleting the Postgres Service"
+	cf delete-service $POSTGRES_SKIPPER -f
+echo ""
+
+echo "Deleting the Schedule Service"
+  cf delete-service $SCHEDULER -f
 echo ""
 
 echo "Removing Orphaned Routes"
@@ -47,7 +64,7 @@ echo ""
 echo "Clean Up Completed"
 echo ""
 
-echo "Applications running in the space (some workers may still need to be deleted):"
+echo 'Applications running in the space (some workers may still need to be deleted):'
 echo ""
 OUTPUT="$(cf apps)"
 echo "$OUTPUT"

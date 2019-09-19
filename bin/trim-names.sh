@@ -1,3 +1,8 @@
+#!/bin/bash
+# Author: Luke Shannon
+# Git Repo: https://github.com/lshannon/spring-cloud-data-flow-setup
+# Disclaimer: This script sets up SCDF for training and eductional purposes only - NOT FOR PRODUCTION
+
 #PCF has limit on the length of characters a route can be.
 #As SCDF adds to the route name itself, the base should be smaller
 trimname(){
